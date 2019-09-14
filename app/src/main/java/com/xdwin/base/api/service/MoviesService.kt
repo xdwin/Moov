@@ -1,0 +1,20 @@
+package com.xdwin.base.api.service
+
+import com.xdwin.base.data.Movies
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+interface MoviesService {
+    @GET("movie/top_rated")
+    fun getTopRatedMovies(@Query("page") page: Int,
+                          @Query("language") language: String = "en-US"): Call<Movies>
+
+    @GET("movie/now_playing")
+    fun getNowPlayingMovies(@Query("page") page: Int,
+                            @Query("language") language: String = "en-US"): Call<Movies>
+
+    @GET("movie/popular")
+    fun getPopularMovies(@Query("page") page: Int,
+                         @Query("language") language: String = "en-US"): Call<Movies>
+}
