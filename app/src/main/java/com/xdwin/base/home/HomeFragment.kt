@@ -9,32 +9,30 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.xdwin.base.R
+import com.xdwin.base.abstraction.BaseFragment
+import com.xdwin.base.ext.setupGridAdapter
 import com.xdwin.base.ext.setupHorizontalAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
+
+    override fun getContentView() = R.layout.fragment_home
 
     private lateinit var model: HomeViewModel
     private lateinit var adapter: HomeAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    override fun initDependency() {
+        model = ViewModelProviders.of(this).get(HomeViewModel::class.java)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        model = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+    override fun initView() {
         setupRecyclerView()
         observeMovies()
     }
 
     private fun setupRecyclerView() {
         adapter = HomeAdapter(model.getPopularMovies().value?.results ?: emptyList())
-        recyclerView.setupHorizontalAdapter(adapter)
+        recyclerView.setupGridAdapter(adapter, 2)
     }
 
     private fun observeMovies() {
