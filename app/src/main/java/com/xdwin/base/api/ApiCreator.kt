@@ -1,6 +1,7 @@
 package com.xdwin.base.api
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.xdwin.base.URLS.BASE_URL_MOVIEDB
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -10,10 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiCreator {
     var retrofit = createRetrofit()
 
-    // todo change your base url here
     private fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BASE_URL_MOVIEDB)
             .client(createDefaultClient())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -26,7 +26,6 @@ object ApiCreator {
         return builder.build()
     }
 
-    // todo change your api key here
     private fun createInterceptor(): Interceptor {
         return object : Interceptor {
             override fun intercept(chain: Interceptor.Chain): Response {

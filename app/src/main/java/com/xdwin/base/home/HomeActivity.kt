@@ -1,14 +1,8 @@
-package com.xdwin.base
+package com.xdwin.base.home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.xdwin.base.api.ApiCreator
-import com.xdwin.base.api.service.MoviesService
-import com.xdwin.base.data.Movies
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.xdwin.base.R
 
 class HomeActivity : AppCompatActivity() {
 
