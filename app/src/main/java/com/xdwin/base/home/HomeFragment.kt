@@ -1,17 +1,11 @@
 package com.xdwin.base.home
 
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.xdwin.base.R
 import com.xdwin.base.abstraction.BaseFragment
 import com.xdwin.base.ext.setupGridAdapter
-import com.xdwin.base.ext.setupHorizontalAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
