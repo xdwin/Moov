@@ -1,2 +1,7 @@
-include ':app'
+//include ':app', ':abstraction', ':buildSrc'
+include Modules.app
+
+// libraries
+include Modules.abstraction
+
 rootProject.name='Base'

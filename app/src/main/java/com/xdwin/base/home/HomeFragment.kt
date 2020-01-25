@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.xdwin.base.R
-import com.xdwin.base.abstraction.BaseFragment
+import com.xdwin.abstraction.abstraction.BaseFragment
 import com.xdwin.base.ext.setupGridAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
