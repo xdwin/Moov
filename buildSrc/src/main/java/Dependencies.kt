@@ -33,7 +33,7 @@ object Version {
     const val material = "1.1.0-alpha05"
 
     //androidx
-    const val constraintLayout = "1.1.2"
+    const val constraintLayout = "1.1.3"
     const val appCompat = "1.0.0"
     const val ktx = "1.0.1"
 

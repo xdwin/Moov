@@ -12,6 +12,8 @@ android {
         versionCode DefaultConfig.versionCode
         versionName DefaultConfig.versionName
         testInstrumentationRunner DefaultConfig.testInstrumentationRunner
+
+        buildConfigField("String", "MOVIE_API_KEY", movieApiKey)
     }
 
     buildTypes {

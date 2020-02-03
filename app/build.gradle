@@ -32,36 +32,19 @@ android {
 }
 
 dependencies {
-    // features
+    // libraries
     implementation project(Modules.abstraction)
+    implementation project(Modules.data)
 
+    // features
+    implementation project(Modules.home)
+    implementation project(Modules.detail)
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // core
     implementation Dependencies.kotlin
     implementation Android.appCompat
     implementation Android.ktx
-
-    // jetpack
-    implementation Jetpack.lifecycle
-    kapt Jetpack.lifecycleCompiler
-    implementation Jetpack.viewModel
-
-    // retrofit
-    implementation Retrofit.retrofit
-    implementation Android.gson
-    implementation Retrofit.gsonConverter
-
-    // glide
-    implementation Glide.glide
-    kapt Glide.compiler
-
-    // component
-    implementation Design.design
-    implementation Design.cardView
-    implementation Design.recyclerView
-    implementation Design.constraintLayout
-
-    // logging
-    implementation Log.stetho
 
     // test
     implementation Testing.jUnit

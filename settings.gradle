@@ -3,5 +3,10 @@ include Modules.app
 
 // libraries
 include Modules.abstraction
+include Modules.data
+
+// features
+include Modules.home
+include Modules.detail
 
 rootProject.name='Base'

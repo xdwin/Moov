@@ -1,0 +1,13 @@
+apply from: "$rootDir/common.gradle"
+
+dependencies {
+    implementation Design.recyclerView
+    
+    // retrofit
+    implementation Retrofit.retrofit
+    implementation Android.gson
+    implementation Retrofit.gsonConverter
+
+    // logging
+    implementation Log.stetho
+}
