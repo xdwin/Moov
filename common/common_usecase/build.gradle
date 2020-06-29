@@ -1,0 +1,12 @@
+apply from: "$rootDir/common.gradle"
+
+dependencies {
+    // dependencies
+    implementation project(Modules.abstraction)
+    implementation project(Modules.data)
+
+    // retrofit
+    implementation Retrofit.retrofit
+    implementation Android.gson
+    implementation Retrofit.gsonConverter
+}

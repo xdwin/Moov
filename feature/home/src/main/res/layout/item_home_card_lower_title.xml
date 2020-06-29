@@ -1,41 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="204dp"
-    android:layout_height="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="6dp"
+    app:cardUseCompatPadding="true">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="6dp"
-        app:cardUseCompatPadding="true">
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/ivMovieCard"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="108dp"
+            android:layout_height="144dp"
+            android:scaleType="centerCrop"
+            android:padding="4dp"
+            android:cropToPadding="true"
+            tools:ignore="ContentDescription"/>
 
-            <ImageView
-                android:id="@+id/ivMovieCard"
-                android:layout_width="match_parent"
-                android:layout_height="256dp"
-                android:scaleType="centerCrop"
-                android:padding="4dp"
-                android:cropToPadding="true"
-                tools:ignore="ContentDescription"/>
-
-            <TextView
-                android:id="@+id/tvMovieCard"
-                android:layout_margin="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|start"
-                android:textSize="14sp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/bg_rounded_text_transparent_gray"
-                tools:text="Terminator 2 : The Judgement Day"/>
-        </FrameLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvMovieCard"
+            app:layout_constraintTop_toBottomOf="@id/ivMovieCard"
+            app:layout_constraintEnd_toEndOf="@id/ivMovieCard"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:textSize="12sp"
+            android:minLines="2"
+            android:maxLines="2"
+            android:textColor="@android:color/white"
+            tools:textColor="@android:color/black"
+            tools:text="Blumhouse's Fantasy Island"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -36,8 +36,12 @@ dependencies {
     implementation project(Modules.abstraction)
     implementation project(Modules.data)
 
+    // commons
+    implementation project(Modules.commonViewModel)
+
     // features
     implementation project(Modules.home)
+    implementation project(Modules.homelist)
     implementation project(Modules.detail)
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -45,6 +49,13 @@ dependencies {
     implementation Dependencies.kotlin
     implementation Android.appCompat
     implementation Android.ktx
+
+    // dagger
+    implementation Dagger.dagger
+    kapt Dagger.compiler
+    api Dagger.android
+    api Dagger.androidSupport
+    annotationProcessor Dagger.processor
 
     // test
     implementation Testing.jUnit

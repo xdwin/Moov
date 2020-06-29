@@ -2,7 +2,7 @@ package com.xdwin.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.xdwin.home.HomeFragment
+import com.xdwin.home.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,5 +17,4 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.container, HomeFragment())
         transaction.commit()
     }
-
 }

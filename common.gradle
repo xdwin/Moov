@@ -47,10 +47,21 @@ android {
         implementation Android.appCompat
         implementation Android.ktx
 
+        // coroutines
+        implementation Coroutines.core
+        implementation Coroutines.android
+
         // retrofit
         implementation Retrofit.retrofit
         implementation Android.gson
         implementation Retrofit.gsonConverter
+
+        // dagger
+        implementation Dagger.dagger
+        kapt Dagger.compiler
+        api Dagger.android
+        api Dagger.androidSupport
+        annotationProcessor Dagger.processor
 
         // test
         implementation Testing.jUnit
