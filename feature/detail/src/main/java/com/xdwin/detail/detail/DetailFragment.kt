@@ -1,29 +1,38 @@
 package com.xdwin.detail.detail
 
+import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.xdwin.abstraction.abstraction.BaseFragment
+import com.xdwin.abstraction.dagger.ViewModelFactory
 import com.xdwin.data.URLS
 import com.xdwin.data.data.Movie
 import com.xdwin.detail.R
+import com.xdwin.detail.dagger.DetailComponent
+import com.xdwin.detail.dagger.DetailComponentCreator
 import kotlinx.android.synthetic.main.fragment_detail.*
+import javax.inject.Inject
 
-class DetailFragment : BaseFragment() {
+class DetailFragment : BaseFragment(R.layout.fragment_detail) {
 
+    lateinit var detailComponent: DetailComponent
+
+    @Inject
+    lateinit var modelFactory: ViewModelFactory
     private lateinit var model: DetailViewModel
-    private lateinit var useCase: DetailUseCase
-    private lateinit var repository: DetailRepository
-
-    override fun getContentView() = R.layout.fragment_detail
 
     private var movieId: Int = -1
-    
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        detailComponent = (context.applicationContext as DetailComponentCreator).createDetailComponent()
+        detailComponent.inject(this)
+    }
+
     override fun initDependency() {
-        repository = DetailRepository()
-        useCase = DetailUseCase(repository)
-        model = ViewModelProviders.of(this, DetailViewModelFactory(useCase))
+        model = ViewModelProviders.of(this, modelFactory)
             .get(DetailViewModel::class.java)
     }
 

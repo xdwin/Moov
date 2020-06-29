@@ -1,13 +1,14 @@
-const val kotlinVersion = "1.3.50"
+import BuildPlugins.Version.kotlin
 
 object BuildPlugins {
 
-    object Versions {
-        const val buildToolsVersion = "3.5.0"
+    object Version {
+        const val buildTools = "3.5.0"
+        const val kotlin = "1.3.50"
     }
 
-    const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.buildToolsVersion}"
-    const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:${Version.buildTools}"
+    const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin"
     const val androidApplication = "com.android.application"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
@@ -40,7 +41,7 @@ object Version {
     // lifecycle
     const val archLifecycle = "2.0.0"
     const val jetpack = "2.1.0"
-    const val recyclerView = "1.0.0"
+    const val recyclerView = "1.2.0-alpha03"
 
     // network
     const val retrofit = "2.6.0"
@@ -49,17 +50,18 @@ object Version {
     const val stetho = "1.5.1"
 
     // coroutines
-    const val coroutines = "1.3.0-M2"
+    const val coroutines = "1.3.3"
     const val coroutinesAdapter = "0.9.2"
 
     // media
     const val glide = "4.9.0"
+    const val shimmer = "0.5.0"
 
     // design component (support)
     const val design = "28.0.0"
 
     // depedency injection
-    const val dagger = "2.21"
+    const val dagger = "2.26"
 
     // local
     const val room = "2.2.0-rc01"
@@ -100,14 +102,14 @@ object Dependencies {
 }
 
 object Retrofit {
-    //val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Version.mockWebServer}"
     val retrofit = "com.squareup.retrofit2:retrofit:${Version.retrofit}"
     val gsonConverter = "com.squareup.retrofit2:converter-gson:${Version.retrofit}"
     val scalarConverter = "com.squareup.retrofit2:converter-scalars:${Version.retrofit}"
-    //val rxAdapter = "com.squareup.retrofit2:adapter-rxjava2:${Version.rxretrofit}"
-    //val okHttpLogging = "com.squareup.okhttp3:logging-interceptor:${Version.okhttpLogging}"
     val coroutinesAdapter = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${Version.coroutinesAdapter}"
     val mock = "com.squareup.retrofit2:retrofit-mock:${Version.retrofit}"
+    //val rxAdapter = "com.squareup.retrofit2:adapter-rxjava2:${Version.rxretrofit}"
+    //val okHttpLogging = "com.squareup.okhttp3:logging-interceptor:${Version.okhttpLogging}"
+    //val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Version.mockWebServer}"
 }
 
 object Coroutines {
@@ -156,6 +158,7 @@ object Testing {
 }
 
 object Misc {
+    val shimmer = "com.facebook.shimmer:shimmer:${Version.shimmer}"
     //val deeplink = "com.airbnb:deeplinkdispatch:${Version.deeplink}"
     //val deeplinkProcessor = "com.airbnb:deeplinkdispatch-processor:${Version.deeplink}"
 }

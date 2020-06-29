@@ -8,8 +8,9 @@ import com.xdwin.data.data.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
-class DetailViewModel(val useCase: DetailUseCase) : ViewModel() {
+class DetailViewModel @Inject constructor(val useCase: DetailUseCase) : ViewModel() {
     private val _popularMovies = MutableLiveData<Response<Movie>>()
     val popularMovies: LiveData<Response<Movie>>
         get() = _popularMovies

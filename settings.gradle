@@ -5,8 +5,12 @@ include Modules.app
 include Modules.abstraction
 include Modules.data
 
+// commons
+include Modules.commonViewModel
+
 // features
 include Modules.home
 include Modules.detail
+include Modules.homelist
 
 rootProject.name='Base'

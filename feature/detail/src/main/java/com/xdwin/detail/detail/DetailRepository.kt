@@ -5,8 +5,9 @@ import com.xdwin.data.api.service.MovieService
 import com.xdwin.data.data.Movie
 import retrofit2.Response
 import retrofit2.awaitResponse
+import javax.inject.Inject
 
-class DetailRepository {
+class DetailRepository @Inject constructor(){
     suspend fun getMovieDetail(movieId: Int): Response<Movie> {
         return ApiCreator.retrofit
             .create(MovieService::class.java)
