@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xdwin.detail" >
 
-    <application>
+    <application
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".detail.DetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>

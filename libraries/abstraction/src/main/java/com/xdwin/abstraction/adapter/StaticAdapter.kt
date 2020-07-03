@@ -6,7 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.xdwin.abstraction.R
 
-class StaticAdapter(val viewId: Int) : RecyclerView.Adapter<StaticAdapter.ViewHolder>() {
+class StaticAdapter(
+    val viewId: Int,
+    val onClickListener: (() -> Unit)? = null
+) : RecyclerView.Adapter<StaticAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -19,8 +22,12 @@ class StaticAdapter(val viewId: Int) : RecyclerView.Adapter<StaticAdapter.ViewHo
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        holder.bind(onClickListener)
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(onClickListener: (() -> Unit)?) {
+            view.setOnClickListener { onClickListener?.invoke() }
+        }
+    }
 }
