@@ -64,13 +64,9 @@ class DetailFragment : BaseFragment(R.layout.fragment_detail) {
                 .load(URLS.BASE_IMAGE_MOVIEDB_1280 + movie.backdropPath)
                 .into(this)
         }
-        ivPoster.apply {
-            Glide.with(this)
-                .load(URLS.BASE_IMAGE_MOVIEDB_500 + movie.posterPath)
-                .into(this)
-        }
         movie.run {
             tvTitle.text = title
+            tvRuntime.text = 
             tvDate.text = releaseDate
             tvRating.text = popularity.toString()
             tvVote.text = voteCount.toString()

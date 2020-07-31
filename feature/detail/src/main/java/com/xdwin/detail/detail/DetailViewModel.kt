@@ -11,6 +11,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(val useCase: DetailUseCase) : ViewModel() {
+    var detailMovie: MutableLiveData<>
     private val _popularMovies = MutableLiveData<Response<Movie>>()
     val popularMovies: LiveData<Response<Movie>>
         get() = _popularMovies
