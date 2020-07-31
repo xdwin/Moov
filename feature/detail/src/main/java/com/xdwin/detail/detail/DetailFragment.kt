@@ -9,7 +9,9 @@ import com.bumptech.glide.Glide
 import com.xdwin.abstraction.abstraction.BaseFragment
 import com.xdwin.abstraction.dagger.ViewModelFactory
 import com.xdwin.data.URLS
+import com.xdwin.data.api.BaseResult
 import com.xdwin.data.data.Movie
+import com.xdwin.data.data.MovieDetail
 import com.xdwin.detail.R
 import com.xdwin.detail.dagger.DetailComponent
 import com.xdwin.detail.dagger.DetailComponentCreator
@@ -49,16 +51,20 @@ class DetailFragment : BaseFragment(R.layout.fragment_detail) {
         if (movieId != -1) {
             model.fetchPopularMovies(movieId)
         }
-        model.popularMovies.observe(this, Observer {
-            if (it.isSuccessful) {
-                it.body()?.run(::renderLayout)
-            } else {
-                Toast.makeText(this.context, it.message(), Toast.LENGTH_SHORT).show()
+        model.detailMovie.observe(this, Observer {
+            when(it) {
+                is BaseResult.Loading -> {}
+                is BaseResult.Success -> {
+                    it.data?.run(::renderLayout)
+                }
+                is BaseResult.Error -> {
+                    Toast.makeText(this.context, it.error, Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }
 
-    private fun renderLayout(movie: Movie) {
+    private fun renderLayout(movie: MovieDetail) {
         ivHeader.apply {
             Glide.with(this)
                 .load(URLS.BASE_IMAGE_MOVIEDB_1280 + movie.backdropPath)
@@ -66,11 +72,8 @@ class DetailFragment : BaseFragment(R.layout.fragment_detail) {
         }
         movie.run {
             tvTitle.text = title
-            tvRuntime.text = 
-            tvDate.text = releaseDate
-            tvRating.text = popularity.toString()
-            tvVote.text = voteCount.toString()
-            tvDescription.text = overview
+            tvRuntime.text = "$runtime Minutes"
+            tvSummaryContent.text = overview
         }
     }
 }

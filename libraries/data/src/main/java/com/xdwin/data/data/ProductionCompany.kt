@@ -6,8 +6,8 @@ import java.io.Serializable
 data class ProductionCompany(
     val id: Int,
     @SerializedName("logo_path")
-    val logo_path: String,
+    val logoPath: String,
     val name: String,
     @SerializedName("origin_country")
-    val origin_country: String
+    val originCountry: String
 ) : Serializable
