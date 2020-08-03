@@ -8,4 +8,10 @@
     <color name="white">#FFFFFF</color>
     <color name="grey">#DDDDDD</color>
     <color name="blue">#0B9BC9</color>
+    <color name="sea">#1892A7</color>
+    <color name="red">#C70039</color>
+    <color name="orange">#FF5733</color>
+    <color name="green">#18A76F</color>
+    <color name="light_green">#DAF7A6</color>
+    <color name="ginger">#FFC300</color>
 </resources>

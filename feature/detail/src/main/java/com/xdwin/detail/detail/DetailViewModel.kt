@@ -1,5 +1,6 @@
 package com.xdwin.detail.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,6 +22,7 @@ class DetailViewModel @Inject constructor(val repo: DetailRepository) : ViewMode
             detailMovie.postValue(BaseResult.Loading)
 
             val result = repo.getMovieDetail(movieId)
+            Log.d("result", result.body()?.toString())
             if (result.isSuccessful) {
                 detailMovie.postValue(BaseResult.Success(result.body()))
             } else {

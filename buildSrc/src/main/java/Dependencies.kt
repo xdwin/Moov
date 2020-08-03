@@ -63,6 +63,10 @@ object Version {
     // depedency injection
     const val dagger = "2.26"
 
+    // flipper
+    const val flipper = "0.51.0"
+    const val soloader = "0.9.0"
+
     // local
     const val room = "2.2.0-rc01"
 
@@ -74,6 +78,12 @@ object Version {
     const val mockTestRunner = "0.3.1"
     const val rules = "1.1.0"
     const val ext = "1.0.0"
+}
+
+object Core {
+    val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}"
+    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Version.kotlin}"
+    val gradle = "com.android.tools.build:gradle:${Version.gradle}"
 }
 
 object Android {
@@ -93,12 +103,6 @@ object Jetpack {
     val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Version.jetpack}"
     val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Version.jetpack}"
     val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.jetpack}"
-}
-
-object Dependencies {
-    val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}"
-    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Version.kotlin}"
-    val gradle = "com.android.tools.build:gradle:${Version.gradle}"
 }
 
 object Retrofit {
@@ -138,6 +142,13 @@ object Room {
 
 object Log {
     val stetho = "com.facebook.stetho:stetho-okhttp3:${Version.stetho}"
+}
+
+object Flipper {
+    val flipper = "com.facebook.flipper:flipper:${Version.flipper}"
+    val flipperNoOp = "com.facebook.flipper:flipper-noop:${Version.flipper}"
+    val flipperNetwork = "com.facebook.flipper:flipper-network-plugin:${Version.flipper}"
+    val soloader = "com.facebook.soloader:soloader:${Version.soloader}"
 }
 
 object Testing {
