@@ -35,10 +35,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search),
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var searchViewModel: SearchViewModel
-
-    private var page: Int = 1
-    private var query: String? = null
-
+    
     private var movies = mutableListOf<Movie>()
     private val onMovieClickListener: ((Movie) -> Unit) = {
         val uri = "moov://detail".toUri()
@@ -106,13 +103,11 @@ class SearchFragment : BaseFragment(R.layout.fragment_search),
     }
 
     private fun onTextChanged(_query: String?) {
-        query = _query?.trim()
-        page = 1
-        query?.run { searchViewModel.searchMovies(this, page) }
+        _query?.run { searchViewModel.onFirstSearch(this) }
     }
 
     private fun onLoadMore() {
-        query?.run { searchViewModel.searchMovies(this, ++page) }
+        searchViewModel.onLoadMore()
     }
 
     private fun observeSearchResult() {
@@ -120,7 +115,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search),
             when(it) {
                 is BaseResult.Loading -> {}
                 is BaseResult.Success -> {
-                    if (page == 1) {
+                    if (searchViewModel.page == SearchViewModel.FIRST_PAGE) {
                         movies.clear()
                     }
                     movies.addAll(it.data?.results ?: emptyList())

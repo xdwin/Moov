@@ -15,7 +15,23 @@ class SearchViewModel @Inject constructor(val repository: SearchRepository) : Vi
     private val _searchResult: MutableLiveData<BaseResult<Movies>> = MutableLiveData()
     val searchResult: LiveData<BaseResult<Movies>> = _searchResult
 
-    fun searchMovies(query: String, page: Int) {
+    var page: Int = FIRST_PAGE
+        private set
+    var query: String = ""
+        private set
+
+    fun onFirstSearch(_query: String) {
+        page = FIRST_PAGE
+        query = _query
+        searchMovies()
+    }
+
+    fun onLoadMore() {
+        page++
+        searchMovies()
+    }
+
+    private fun searchMovies() {
         viewModelScope.launch(Dispatchers.IO) {
             _searchResult.postValue(BaseResult.Loading)
             if (query.isBlank()) {
@@ -37,5 +53,9 @@ class SearchViewModel @Inject constructor(val repository: SearchRepository) : Vi
                 _searchResult.postValue(BaseResult.Error(result.message()))
             }
         }
+    }
+
+    companion object {
+        const val FIRST_PAGE = 1
     }
 }
