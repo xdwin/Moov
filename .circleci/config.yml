@@ -25,5 +25,5 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-          - checkout
+          name: Build
           command: ./gradlew build
