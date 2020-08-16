@@ -150,7 +150,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
                 }
                 is BaseResult.Success -> {
                     rvAdapter.removeAdapter(nowPlayingLoadingAdapter)
-                    rvAdapter.addAdapter(1, nowPlayingAdapter)
+                    rvAdapter.addAdapter(NOW_PLAYING_ITEM_POSITION, nowPlayingAdapter)
 
                     nowPlayingMovies.addAll(it.data?.results?.take(5) ?: emptyList())
                     nowPlayingAdapter.notifyDataSetChanged()
@@ -168,7 +168,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
                 }
                 is BaseResult.Success -> {
                     rvAdapter.removeAdapter(topRatedLoadingAdapter)
-                    rvAdapter.addAdapter(2, topRatedAdapter)
+                    rvAdapter.addAdapter(TOP_RATED_ITEM_POSITION, topRatedAdapter)
 
                     topRatedMovies.addAll(it.data?.results?.take(5) ?: emptyList())
                     topRatedAdapter.notifyDataSetChanged()
@@ -186,7 +186,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
                 }
                 is BaseResult.Success -> {
                     rvAdapter.removeAdapter(popularLoadingAdapter)
-                    rvAdapter.addAdapter(3, popularAdapter)
+                    rvAdapter.addAdapter(POPULAR_ITEM_POSITION, popularAdapter)
 
                     popularMovies.addAll(it.data?.results?.take(5) ?: emptyList())
                     popularAdapter.notifyDataSetChanged()
@@ -200,5 +200,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
 
     override fun onBackPressed() {
         activity?.finishAndRemoveTask()
+    }
+
+    companion object {
+        const val NOW_PLAYING_ITEM_POSITION = 1
+        const val TOP_RATED_ITEM_POSITION = 2
+        const val POPULAR_ITEM_POSITION = 3
     }
 }

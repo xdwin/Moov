@@ -61,24 +61,6 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:text="A Dark Knight Rises" />
 
-    <RatingBar
-        android:id="@+id/rbRatingBar"
-        style="?android:attr/ratingBarStyleIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
-        android:numStars="5"
-        android:rating="3.5"
-        android:scaleX=".5"
-        android:scaleY=".5"
-        android:max="5"
-        android:transformPivotX="0dp"
-        android:transformPivotY="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        />
-
     <TextView
         android:id="@+id/tvRuntime"
         android:layout_width="wrap_content"
@@ -87,10 +69,60 @@
         android:layout_marginTop="4dp"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@id/rbRatingBar"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         tools:text="132 Minutes" />
 
+    <View
+        android:id="@+id/verticalDivider1"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:layout_marginVertical="4dp"
+        android:layout_marginHorizontal="4dp"
+        app:layout_constraintStart_toEndOf="@id/tvRuntime"
+        app:layout_constraintTop_toTopOf="@id/tvRuntime"
+        app:layout_constraintBottom_toBottomOf="@id/tvRuntime" />
+
+    <TextView
+        android:id="@+id/tvReviewCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/verticalDivider1"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        tools:text="999 Reviews" />
+
+    <View
+        android:id="@+id/verticalDivider2"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:layout_marginVertical="4dp"
+        android:layout_marginHorizontal="4dp"
+        app:layout_constraintStart_toEndOf="@id/tvReviewCount"
+        app:layout_constraintTop_toTopOf="@id/tvReviewCount"
+        app:layout_constraintBottom_toBottomOf="@id/tvReviewCount" />
+
+    <RatingBar
+        android:id="@+id/rbRatingBar"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:numStars="5"
+        android:scaleX=".5"
+        android:scaleY=".5"
+        android:max="5"
+        android:transformPivotX="0dp"
+        android:transformPivotY="0dp"
+        app:layout_constraintStart_toEndOf="@id/verticalDivider2"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        tools:rating="3.5"/>
 
     <!--  Header End  -->
 

@@ -2,17 +2,14 @@ package com.xdwin.detail.detail
 
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
-import android.view.MenuItem
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginEnd
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
@@ -24,19 +21,16 @@ import com.xdwin.abstraction.ext.dp
 import com.xdwin.data.URLS
 import com.xdwin.data.api.BaseResult
 import com.xdwin.data.data.Genre
-import com.xdwin.data.data.Movie
 import com.xdwin.data.data.MovieDetail
 import com.xdwin.detail.R
 import com.xdwin.detail.dagger.DetailComponent
 import com.xdwin.detail.dagger.DetailComponentCreator
 import kotlinx.android.synthetic.main.fragment_detail.*
 import javax.inject.Inject
-import kotlin.random.Random
 
 class DetailFragment : BaseFragment(R.layout.fragment_detail) {
 
     lateinit var detailComponent: DetailComponent
-    private val random by lazy { Random(5) }
 
     @Inject
     lateinit var modelFactory: ViewModelFactory
@@ -91,6 +85,8 @@ class DetailFragment : BaseFragment(R.layout.fragment_detail) {
         movie.run {
             tvTitle.text = title
             tvRuntime.text = "$runtime Minutes"
+            tvReviewCount.text = "$voteCount Reviews"
+            rbRatingBar.rating = (voteAverage.toFloat()/2f)
             llGenreContent.run {
                 genres.map { createGenreItem(it) }.forEach(::addView)
             }

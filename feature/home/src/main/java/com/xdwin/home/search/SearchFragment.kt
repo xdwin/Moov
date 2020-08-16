@@ -35,7 +35,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search),
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var searchViewModel: SearchViewModel
-    
+
     private var movies = mutableListOf<Movie>()
     private val onMovieClickListener: ((Movie) -> Unit) = {
         val uri = "moov://detail".toUri()
