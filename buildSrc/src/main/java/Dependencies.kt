@@ -82,7 +82,7 @@ object Version {
 
 object Core {
     val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}"
-    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Version.kotlin}"
+    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jre7:${Version.kotlin}"
     val gradle = "com.android.tools.build:gradle:${Version.gradle}"
 }
 
