@@ -61,7 +61,7 @@ dependencies {
     debugImplementation Flipper.flipper
     debugImplementation Flipper.soloader
     debugImplementation Flipper.flipperNetwork
-    releaseImplementation Flipper.flipperNoOp
+    //releaseImplementation Flipper.flipperNoOp
 
     // test
     implementation Testing.jUnit
