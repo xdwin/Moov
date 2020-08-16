@@ -19,7 +19,7 @@ class PopularViewModel @Inject constructor(
     val popularMovies: LiveData<BaseResult<Movies>>
         get() = fetchPopularMovies()
 
-    fun fetchPopularMovies(): LiveData<BaseResult<Movies>> {
+    private fun fetchPopularMovies(): LiveData<BaseResult<Movies>> {
         val _popularMovies = MutableLiveData<BaseResult<Movies>>()
         viewModelScope.launch(Dispatchers.IO) {
             _popularMovies.postValue(BaseResult.Loading)

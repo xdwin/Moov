@@ -20,7 +20,7 @@ object Jumper {
         val intent: Intent = if (isSamePackage) {
             Intent(context, BaseActivity::class.java)
         } else {
-            Intent(context, BaseActivity::class.java).apply {
+            Intent(context, BaseActivity::class.java).run {
                 putExtra(FRAGMENT_ID_KEY, generateId(fragment))
             }
         }

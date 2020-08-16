@@ -43,7 +43,7 @@ android {
 
     dependencies {
         // core
-        implementation Dependencies.kotlin
+        implementation Core.kotlin
         implementation Android.appCompat
         implementation Android.ktx
 

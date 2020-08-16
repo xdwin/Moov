@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.xdwin.abstraction.R
+import com.xdwin.abstraction.listener.BackPressedListener
 import com.xdwin.abstraction.jumper.Jumper
 
-class BaseActivity() : AppCompatActivity(R.layout.activity_container) {
+open class BaseActivity() : AppCompatActivity(R.layout.activity_container) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,9 +18,20 @@ class BaseActivity() : AppCompatActivity(R.layout.activity_container) {
         }
     }
 
+    override fun onDestroy() {
+        onBackPressedListener = null
+        super.onDestroy()
+    }
+
     private fun inflateFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, fragment)
         transaction.commit()
+    }
+
+    var onBackPressedListener: BackPressedListener? = null
+
+    override fun onBackPressed() {
+        onBackPressedListener?.onBackPressed() ?: super.onBackPressed()
     }
 }

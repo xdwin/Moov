@@ -46,7 +46,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // core
-    implementation Dependencies.kotlin
+    implementation Core.kotlin
     implementation Android.appCompat
     implementation Android.ktx
 
@@ -56,6 +56,12 @@ dependencies {
     api Dagger.android
     api Dagger.androidSupport
     annotationProcessor Dagger.processor
+
+    // flipper
+    //debugImplementation Flipper.flipper
+    //debugImplementation Flipper.soloader
+    //debugImplementation Flipper.flipperNetwork
+    //releaseImplementation Flipper.flipperNoOp
 
     // test
     implementation Testing.jUnit

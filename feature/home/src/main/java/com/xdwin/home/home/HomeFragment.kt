@@ -7,8 +7,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.MergeAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.xdwin.abstraction.Constants
+import com.xdwin.abstraction.listener.BackPressedListener
+import com.xdwin.abstraction.abstraction.BaseActivity
 import com.xdwin.abstraction.abstraction.BaseFragment
 import com.xdwin.abstraction.adapter.StaticAdapter
 import com.xdwin.abstraction.ext.setupMergeAdapter
@@ -26,8 +27,10 @@ import com.xdwin.home.home.adapter.HomeCardSectionAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment(R.layout.fragment_home) {
+class HomeFragment : BaseFragment(R.layout.fragment_home),
+    BackPressedListener {
 
+    lateinit var activitySwitchListener: HomeSwitchFragmentListener
     lateinit var homeComponent: HomeComponent
 
     @Inject
@@ -47,7 +50,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         startActivity(intent)
     }
 
-    fun getSeeAllClickListener(mode: HomeListMode): () -> Unit {
+    // todo @xdwin fix this (above and below) inconsistensies
+    fun onSeeAllClickListener(mode: HomeListMode): () -> Unit {
         return {
             val uri = Constants.NAV_URI_HOMELIST.toUri()
             val intent = Intent(Intent.ACTION_VIEW, uri)
@@ -56,8 +60,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
     }
 
+    private val onSearchBarClickListener: () -> Unit = {
+        activitySwitchListener.switchToSearchFragment()
+    }
+
     private val searchBarAdapter: StaticAdapter by lazy {
-        StaticAdapter(R.layout.item_search_section)
+        StaticAdapter(
+            R.layout.item_search_section,
+            onSearchBarClickListener
+        )
     }
 
     private val nowPlayingAdapter: HomeCardSectionAdapter by lazy {
@@ -65,7 +76,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             "Featured",
             nowPlayingMovies,
             onMovieClickListener,
-            getSeeAllClickListener(HomeListMode.NOWPLAYING)
+            onSeeAllClickListener(HomeListMode.NOWPLAYING)
         )
     }
 
@@ -74,7 +85,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             "Top Rated",
             topRatedMovies,
             onMovieClickListener,
-            getSeeAllClickListener(HomeListMode.TOPRATED)
+            onSeeAllClickListener(HomeListMode.TOPRATED)
         )
     }
 
@@ -83,7 +94,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             "Most Popular",
             popularMovies,
             onMovieClickListener,
-            getSeeAllClickListener(HomeListMode.POPULAR)
+            onSeeAllClickListener(HomeListMode.POPULAR)
         )
     }
 
@@ -102,6 +113,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun onAttach(context: Context) {
         homeComponent = (context.applicationContext as HomeComponentCreator).createHomeComponent()
         homeComponent.inject(this)
+        if (context is BaseActivity) {
+            context.onBackPressedListener = this
+        }
+        if (context is HomeSwitchFragmentListener) {
+            activitySwitchListener = context
+        }
         super.onAttach(context)
     }
 
@@ -133,7 +150,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 }
                 is BaseResult.Success -> {
                     rvAdapter.removeAdapter(nowPlayingLoadingAdapter)
-                    rvAdapter.addAdapter(1, nowPlayingAdapter)
+                    rvAdapter.addAdapter(NOW_PLAYING_ITEM_POSITION, nowPlayingAdapter)
 
                     nowPlayingMovies.addAll(it.data?.results?.take(5) ?: emptyList())
                     nowPlayingAdapter.notifyDataSetChanged()
@@ -151,7 +168,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 }
                 is BaseResult.Success -> {
                     rvAdapter.removeAdapter(topRatedLoadingAdapter)
-                    rvAdapter.addAdapter(2, topRatedAdapter)
+                    rvAdapter.addAdapter(TOP_RATED_ITEM_POSITION, topRatedAdapter)
 
                     topRatedMovies.addAll(it.data?.results?.take(5) ?: emptyList())
                     topRatedAdapter.notifyDataSetChanged()
@@ -169,7 +186,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 }
                 is BaseResult.Success -> {
                     rvAdapter.removeAdapter(popularLoadingAdapter)
-                    rvAdapter.addAdapter(3, popularAdapter)
+                    rvAdapter.addAdapter(POPULAR_ITEM_POSITION, popularAdapter)
 
                     popularMovies.addAll(it.data?.results?.take(5) ?: emptyList())
                     popularAdapter.notifyDataSetChanged()
@@ -179,5 +196,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 }
             }
         })
+    }
+
+    override fun onBackPressed() {
+        activity?.finishAndRemoveTask()
+    }
+
+    companion object {
+        const val NOW_PLAYING_ITEM_POSITION = 1
+        const val TOP_RATED_ITEM_POSITION = 2
+        const val POPULAR_ITEM_POSITION = 3
     }
 }
