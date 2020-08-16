@@ -10,8 +10,8 @@ dependencies {
     implementation Log.stetho
 
     // flipper
-    debugImplementation Flipper.flipper
-    debugImplementation Flipper.soloader
-    debugImplementation Flipper.flipperNetwork
+    //debugImplementation Flipper.flipper
+    //debugImplementation Flipper.soloader
+    //debugImplementation Flipper.flipperNetwork
     //releaseImplementation Flipper.flipperNoOp
 }

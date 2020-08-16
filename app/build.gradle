@@ -58,9 +58,9 @@ dependencies {
     annotationProcessor Dagger.processor
 
     // flipper
-    debugImplementation Flipper.flipper
-    debugImplementation Flipper.soloader
-    debugImplementation Flipper.flipperNetwork
+    //debugImplementation Flipper.flipper
+    //debugImplementation Flipper.soloader
+    //debugImplementation Flipper.flipperNetwork
     //releaseImplementation Flipper.flipperNoOp
 
     // test

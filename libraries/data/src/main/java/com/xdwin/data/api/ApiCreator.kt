@@ -1,7 +1,5 @@
 package com.xdwin.data.api
 
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.xdwin.data.URLS.BASE_URL_MOVIEDB
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -23,7 +21,6 @@ object ApiCreator {
     private fun createDefaultClient(): OkHttpClient {
         val builder =  OkHttpClient.Builder()
         builder.interceptors().add(createInterceptor())
-        builder.addNetworkInterceptor(FlipperOkhttpInterceptor(NetworkFlipperPlugin()))
         return builder.build()
     }
 

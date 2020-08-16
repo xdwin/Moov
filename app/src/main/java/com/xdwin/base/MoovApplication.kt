@@ -1,12 +1,6 @@
 package com.xdwin.base
 
 import android.app.Application
-import com.facebook.flipper.android.AndroidFlipperClient
-import com.facebook.flipper.android.utils.FlipperUtils
-import com.facebook.flipper.plugins.inspector.DescriptorMapping
-import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
-import com.facebook.soloader.SoLoader
 import com.xdwin.detail.dagger.DetailComponent
 import com.xdwin.detail.dagger.DetailComponentCreator
 import com.xdwin.home.dagger.HomeComponent
@@ -29,15 +23,5 @@ class MoovApplication : Application(),
 
     override fun onCreate() {
         super.onCreate()
-        // Facebook SoLoader
-        SoLoader.init(this, false)
-
-        if (BuildConfig.DEBUG && FlipperUtils.shouldEnableFlipper(this)) {
-            AndroidFlipperClient.getInstance(this).also {
-                it.addPlugin(InspectorFlipperPlugin(this, DescriptorMapping.withDefaults()))
-                it.addPlugin(NetworkFlipperPlugin())
-                it.start()
-            }
-        }
     }
 }
