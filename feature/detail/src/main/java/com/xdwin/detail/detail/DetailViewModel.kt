@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xdwin.data.api.BaseResult
+import com.xdwin.data.data.Credits
 import com.xdwin.data.data.Movie
 import com.xdwin.data.data.MovieDetail
 import kotlinx.coroutines.Dispatchers
@@ -14,19 +15,33 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(val repo: DetailRepository) : ViewModel() {
-    var detailMovie = MutableLiveData<BaseResult<MovieDetail>>()
-    private set
+
+    private var _detailMovie = MutableLiveData<BaseResult<MovieDetail>>()
+    val detailMovie: LiveData<BaseResult<MovieDetail>> get() = _detailMovie
+
+    private var _credits = MutableLiveData<BaseResult<Credits>>()
+    val credits: LiveData<BaseResult<Credits>> get() = _credits
 
     fun fetchPopularMovies(movieId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            detailMovie.postValue(BaseResult.Loading)
+            _detailMovie.postValue(BaseResult.Loading)
 
             val result = repo.getMovieDetail(movieId)
-            Log.d("result", result.body()?.toString())
             if (result.isSuccessful) {
-                detailMovie.postValue(BaseResult.Success(result.body()))
+                _detailMovie.postValue(BaseResult.Success(result.body()))
             } else {
-                detailMovie.postValue(BaseResult.Error(result.message()))
+                _detailMovie.postValue(BaseResult.Error(result.message()))
+            }
+        }
+    }
+
+    fun fetchCredits(movieId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = repo.getCredits(movieId)
+            if (result.isSuccessful) {
+                _credits.postValue(BaseResult.Success(result.body()))
+            } else {
+                _credits.postValue(BaseResult.Error(result.message()))
             }
         }
     }

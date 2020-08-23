@@ -1,12 +1,19 @@
 package com.xdwin.abstraction.abstraction
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlin.coroutines.CoroutineContext
 
-abstract class BaseFragment(contentView: Int) : Fragment(contentView) {
+abstract class BaseFragment(contentView: Int) : Fragment(contentView), CoroutineScope {
+
+    val job = SupervisorJob()
+
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.Default
 
     abstract fun initDependency()
     abstract fun initView()

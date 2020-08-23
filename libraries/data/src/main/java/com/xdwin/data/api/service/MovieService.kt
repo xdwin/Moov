@@ -1,6 +1,7 @@
 package com.xdwin.data.api.service
 
 import com.xdwin.data.BuildConfig
+import com.xdwin.data.data.Credits
 import com.xdwin.data.data.Movie
 import com.xdwin.data.data.MovieDetail
 import retrofit2.Call
@@ -13,4 +14,9 @@ interface MovieService {
     fun getMovie(@Path("movie_id") movieId: Int,
                  @Query("api_key") apiKey: String = BuildConfig.MOVIE_API_KEY
     ): Call<MovieDetail>
+
+    @GET("movie/{movie_id}/credits")
+    fun getCredits(@Path("movie_id") movieId: Int,
+                   @Query("api_key") apiKey: String = BuildConfig.MOVIE_API_KEY
+    ): Call<Credits>
 }

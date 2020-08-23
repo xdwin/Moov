@@ -16,12 +16,10 @@ class TopRatedViewModel @Inject constructor(
     val repository: HomeRepository
 ) : BaseMovieViewModel<Movies>() {
 
-    val topRatedMovies: LiveData<BaseResult<Movies>>
-        get() = fetchTopRatedMovies()
+    private var _topRatedMovies = MutableLiveData<BaseResult<Movies>>()
+    val topRatedMovies: LiveData<BaseResult<Movies>> get() = _topRatedMovies
 
-    private fun fetchTopRatedMovies(): LiveData<BaseResult<Movies>> {
-        val _topRatedMovies = MutableLiveData<BaseResult<Movies>>()
-
+    private fun fetchTopRatedMovies() {
         viewModelScope.launch(Dispatchers.IO) {
             _topRatedMovies.postValue(BaseResult.Loading)
             val result = repository.getTopRatedMoviesApi()
@@ -31,7 +29,10 @@ class TopRatedViewModel @Inject constructor(
                 _topRatedMovies.postValue(BaseResult.Error(result.message()))
             }
         }
-        return _topRatedMovies
+    }
+
+    override fun fetchData() {
+        fetchTopRatedMovies()
     }
 
     override fun observeData(): LiveData<BaseResult<Movies>> {

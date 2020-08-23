@@ -6,6 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.xdwin.abstraction.R
 
+/**
+ * Used to bind simple static view to RecyclerView.Adapter
+ */
+
 class StaticAdapter(
     val viewId: Int,
     val onClickListener: (() -> Unit)? = null

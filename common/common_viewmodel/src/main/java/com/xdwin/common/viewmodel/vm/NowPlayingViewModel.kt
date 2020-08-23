@@ -16,11 +16,10 @@ class NowPlayingViewModel @Inject constructor(
     val repository: HomeRepository
 ) : BaseMovieViewModel<Movies>() {
 
-    val nowPlayingMovies: LiveData<BaseResult<Movies>>
-        get() = fetchNowPlayingMovies()
+    private var _nowPlayingMovies = MutableLiveData<BaseResult<Movies>>()
+    val nowPlayingMovies: LiveData<BaseResult<Movies>> get() = _nowPlayingMovies
 
-    fun fetchNowPlayingMovies(): LiveData<BaseResult<Movies>> {
-        val _nowPlayingMovies = MutableLiveData<BaseResult<Movies>>()
+    fun fetchNowPlayingMovies() {
         viewModelScope.launch(Dispatchers.IO) {
             _nowPlayingMovies.postValue(BaseResult.Loading)
             val result = repository.getNowPlayingMoviesApi()
@@ -30,7 +29,10 @@ class NowPlayingViewModel @Inject constructor(
                 _nowPlayingMovies.postValue(BaseResult.Error(result.message()))
             }
         }
-        return _nowPlayingMovies
+    }
+
+    override fun fetchData() {
+        fetchNowPlayingMovies()
     }
 
     override fun observeData(): LiveData<BaseResult<Movies>> {

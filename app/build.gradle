@@ -50,6 +50,10 @@ dependencies {
     implementation Android.appCompat
     implementation Android.ktx
 
+    // coroutines
+    implementation Coroutines.core
+    implementation Coroutines.android
+
     // dagger
     implementation Dagger.dagger
     kapt Dagger.compiler

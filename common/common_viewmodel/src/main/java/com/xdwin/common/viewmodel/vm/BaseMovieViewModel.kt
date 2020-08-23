@@ -8,5 +8,6 @@ import com.xdwin.data.data.Movies
 import retrofit2.Response
 
 abstract class BaseMovieViewModel<T : Any> : ViewModel() {
+    abstract fun fetchData()
     abstract fun observeData(): LiveData<BaseResult<T>>
 }
