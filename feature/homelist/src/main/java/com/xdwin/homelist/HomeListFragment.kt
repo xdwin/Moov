@@ -60,10 +60,10 @@ class HomeListFragment : BaseFragment(R.layout.fragment_homelist) {
         }
 
         val vmClass = when(homeListMode) {
-            HomeListMode.NOWPLAYING -> NowPlayingViewModel::class.java as Class<BaseMovieViewModel<Movies>>
-            HomeListMode.TOPRATED -> TopRatedViewModel::class.java as Class<BaseMovieViewModel<Movies>>
-            HomeListMode.POPULAR -> PopularViewModel::class.java as Class<BaseMovieViewModel<Movies>>
-        }
+            HomeListMode.NOWPLAYING -> NowPlayingViewModel::class.java
+            HomeListMode.TOPRATED -> TopRatedViewModel::class.java
+            HomeListMode.POPULAR -> PopularViewModel::class.java
+        } as Class<BaseMovieViewModel<Movies>>
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(vmClass)
     }
 
@@ -77,6 +77,7 @@ class HomeListFragment : BaseFragment(R.layout.fragment_homelist) {
     }
 
     private fun observeViewModel() {
+        viewModel.fetchData()
         viewModel.observeData().observe(this, Observer {
             when(it) {
                 is BaseResult.Loading -> {

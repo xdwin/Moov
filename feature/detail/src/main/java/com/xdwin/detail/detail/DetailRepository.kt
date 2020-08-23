@@ -2,6 +2,7 @@ package com.xdwin.detail.detail
 
 import com.xdwin.data.api.ApiCreator
 import com.xdwin.data.api.service.MovieService
+import com.xdwin.data.data.Credits
 import com.xdwin.data.data.Movie
 import com.xdwin.data.data.MovieDetail
 import retrofit2.Response
@@ -13,6 +14,13 @@ class DetailRepository @Inject constructor(){
         return ApiCreator.retrofit
             .create(MovieService::class.java)
             .getMovie(movieId = movieId)
+            .awaitResponse()
+    }
+
+    suspend fun getCredits(movieId: Int): Response<Credits> {
+        return ApiCreator.retrofit
+            .create(MovieService::class.java)
+            .getCredits(movieId)
             .awaitResponse()
     }
 }

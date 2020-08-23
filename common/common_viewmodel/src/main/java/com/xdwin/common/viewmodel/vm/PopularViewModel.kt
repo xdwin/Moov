@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.xdwin.common.viewmodel.HomeRepository
 import com.xdwin.common.viewmodel.usecase.HomeUseCase
 import com.xdwin.data.api.BaseResult
+import com.xdwin.data.data.Movie
 import com.xdwin.data.data.Movies
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,13 +17,16 @@ class PopularViewModel @Inject constructor(
     val repository: HomeRepository
 ) : BaseMovieViewModel<Movies>() {
 
-    val popularMovies: LiveData<BaseResult<Movies>>
-        get() = fetchPopularMovies()
+    val featuredPopularMovie: LiveData<BaseResult<Movie>> get() = _featuredPopularMovie
+    private var _featuredPopularMovie = MutableLiveData<BaseResult<Movie>>()
 
-    private fun fetchPopularMovies(): LiveData<BaseResult<Movies>> {
-        val _popularMovies = MutableLiveData<BaseResult<Movies>>()
+    val popularMovies: LiveData<BaseResult<Movies>> get() = _popularMovies
+    private var _popularMovies = MutableLiveData<BaseResult<Movies>>()
+
+    fun fetchPopularMovies() {
         viewModelScope.launch(Dispatchers.IO) {
             _popularMovies.postValue(BaseResult.Loading)
+            _featuredPopularMovie.postValue(BaseResult.Loading)
             val result = repository.getPopularMoviesApi()
             if (result.isSuccessful) {
                 _popularMovies.postValue(BaseResult.Success(result.body()))
@@ -30,7 +34,10 @@ class PopularViewModel @Inject constructor(
                 _popularMovies.postValue(BaseResult.Error(result.message()))
             }
         }
-        return _popularMovies
+    }
+
+    override fun fetchData() {
+        fetchPopularMovies()
     }
 
     override fun observeData(): LiveData<BaseResult<Movies>> {

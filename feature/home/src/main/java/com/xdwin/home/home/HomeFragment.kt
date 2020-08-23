@@ -22,9 +22,12 @@ import com.xdwin.data.data.Movie
 import com.xdwin.home.R
 import com.xdwin.home.dagger.HomeComponent
 import com.xdwin.home.dagger.HomeComponentCreator
+import com.xdwin.home.home.adapter.HomeFeaturedAdapter
 import com.xdwin.home.home.adapter.HomeCardLoadingAdapter
 import com.xdwin.home.home.adapter.HomeCardSectionAdapter
+import com.xdwin.home.home.adapter.HomeFeaturedLoadingAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment(R.layout.fragment_home),
@@ -98,6 +101,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
         )
     }
 
+    private val homeFeaturedLoadingAdapter: HomeFeaturedLoadingAdapter by lazy {
+        HomeFeaturedLoadingAdapter()
+    }
+
     private val nowPlayingLoadingAdapter: HomeCardLoadingAdapter by lazy {
         HomeCardLoadingAdapter()
     }
@@ -133,6 +140,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
 
     override fun initView() {
         setupRecyclerView()
+        fetchMovies()
         observeMovies()
     }
 
@@ -140,10 +148,22 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
         recyclerView.setupMergeAdapter(searchBarAdapter)
     }
 
+    private fun fetchMovies() {
+        val nowPlayingAsync = async { nowPlayingViewModel.fetchData() }
+        val topRatedAsync = async { topRatedViewModel.fetchData() }
+        val popularAsync = async { popularViewModel.fetchData() }
+
+        launch(Dispatchers.IO) {
+            nowPlayingAsync.await()
+            topRatedAsync.await()
+            popularAsync.await()
+        }
+    }
+
     private fun observeMovies() {
         val rvAdapter = recyclerView.adapter as MergeAdapter
 
-        nowPlayingViewModel.nowPlayingMovies.observe(this, Observer {
+        nowPlayingViewModel.observeData().observe(this, Observer {
             when(it) {
                 is BaseResult.Loading -> {
                     rvAdapter.addAdapter(nowPlayingLoadingAdapter)
@@ -161,7 +181,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
             }
         })
 
-        topRatedViewModel.topRatedMovies.observe(this, Observer {
+        topRatedViewModel.observeData().observe(this, Observer {
             when(it) {
                 is BaseResult.Loading -> {
                     rvAdapter.addAdapter(topRatedLoadingAdapter)
@@ -179,14 +199,22 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
             }
         })
 
-        popularViewModel.popularMovies.observe(this, Observer {
+        popularViewModel.observeData().observe(this, Observer {
             when(it) {
                 is BaseResult.Loading -> {
+                    rvAdapter.addAdapter(HOME_FEATURED_POSITION, homeFeaturedLoadingAdapter)
                     rvAdapter.addAdapter(popularLoadingAdapter)
                 }
                 is BaseResult.Success -> {
                     rvAdapter.removeAdapter(popularLoadingAdapter)
+                    rvAdapter.removeAdapter(homeFeaturedLoadingAdapter)
+
                     rvAdapter.addAdapter(POPULAR_ITEM_POSITION, popularAdapter)
+                    val featuredAdapter = HomeFeaturedAdapter(
+                        it.data?.results?.get(0)!!,
+                        onMovieClickListener
+                    )
+                    rvAdapter.addAdapter(HOME_FEATURED_POSITION, featuredAdapter)
 
                     popularMovies.addAll(it.data?.results?.take(5) ?: emptyList())
                     popularAdapter.notifyDataSetChanged()
@@ -203,8 +231,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
     }
 
     companion object {
-        const val NOW_PLAYING_ITEM_POSITION = 1
-        const val TOP_RATED_ITEM_POSITION = 2
-        const val POPULAR_ITEM_POSITION = 3
+        const val HOME_FEATURED_POSITION = 1
+        const val POPULAR_ITEM_POSITION = 2
+        const val NOW_PLAYING_ITEM_POSITION = 3
+        const val TOP_RATED_ITEM_POSITION = 4
     }
 }

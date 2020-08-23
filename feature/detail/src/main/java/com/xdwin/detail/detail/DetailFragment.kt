@@ -3,8 +3,7 @@ package com.xdwin.detail.detail
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.view.View
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -18,8 +17,10 @@ import com.xdwin.abstraction.Randomizer
 import com.xdwin.abstraction.abstraction.BaseFragment
 import com.xdwin.abstraction.dagger.ViewModelFactory
 import com.xdwin.abstraction.ext.dp
+import com.xdwin.abstraction.ext.setupHorizontalAdapter
 import com.xdwin.data.URLS
 import com.xdwin.data.api.BaseResult
+import com.xdwin.data.data.Cast
 import com.xdwin.data.data.Genre
 import com.xdwin.data.data.MovieDetail
 import com.xdwin.detail.R
@@ -30,13 +31,22 @@ import javax.inject.Inject
 
 class DetailFragment : BaseFragment(R.layout.fragment_detail) {
 
+    // component
     lateinit var detailComponent: DetailComponent
 
+    // model
     @Inject
     lateinit var modelFactory: ViewModelFactory
     private lateinit var model: DetailViewModel
 
+    // data
     private var movieId: Int = -1
+    private var uiData = UIData()
+
+    // adapter
+    private val castAdapter by lazy {
+        CastAndCrewAdapter(uiData.casts)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -54,7 +64,13 @@ class DetailFragment : BaseFragment(R.layout.fragment_detail) {
         intent?.run { 
             movieId = getIntExtra(Constants.INTENT_MOVIE_ID_KEY, -1)
         }
+        setupRecyclerView()
         observeMovie()
+        observeCredits()
+    }
+
+    private fun setupRecyclerView() {
+        rvCasts.setupHorizontalAdapter(castAdapter)
     }
 
     private fun observeMovie() {
@@ -65,7 +81,7 @@ class DetailFragment : BaseFragment(R.layout.fragment_detail) {
             when(it) {
                 is BaseResult.Loading -> {}
                 is BaseResult.Success -> {
-                    it.data?.run(::renderLayout)
+                    uiData.apply { movieDetail = it.data }.also(::renderLayout)
                 }
                 is BaseResult.Error -> {
                     Toast.makeText(this.context, it.error, Toast.LENGTH_SHORT).show()
@@ -74,23 +90,52 @@ class DetailFragment : BaseFragment(R.layout.fragment_detail) {
         })
     }
 
-    private fun renderLayout(movie: MovieDetail) {
-        ivBack.setOnClickListener { activity?.finish() }
-        tvAdult.visibility = if (movie.adult) VISIBLE else INVISIBLE
-        ivHeader.run {
-            Glide.with(this)
-                .load(URLS.BASE_IMAGE_MOVIEDB_1280 + movie.backdropPath)
-                .into(this)
+    private fun observeCredits() {
+        if (movieId != -1) {
+            model.fetchCredits(movieId)
         }
-        movie.run {
-            tvTitle.text = title
-            tvRuntime.text = "$runtime Minutes"
-            tvReviewCount.text = "$voteCount Reviews"
-            rbRatingBar.rating = (voteAverage.toFloat()/2f)
-            llGenreContent.run {
-                genres.map { createGenreItem(it) }.forEach(::addView)
+        model.credits.observe(this, Observer {
+            when(it) {
+                is BaseResult.Success -> {
+                    uiData.apply {
+                        casts.addAll(it.data?.cast?.take(5) ?: emptyList())
+                    }.also(::renderLayout)
+                }
+                is BaseResult.Error -> {
+                    Toast.makeText(this.context, it.error, Toast.LENGTH_SHORT).show()
+                }
             }
-            tvSummaryContent.text = overview
+        })
+    }
+
+    private fun renderLayout(uiData: UIData) {
+        with(uiData) {
+            ivBack.setOnClickListener { activity?.finish() }
+            tvAdult.visibility = if (movieDetail?.adult == true) VISIBLE else INVISIBLE
+            ivHeader.run {
+                Glide.with(this)
+                    .load(URLS.BASE_IMAGE_MOVIEDB_1280 + movieDetail?.backdropPath)
+                    .into(this)
+            }
+            movieDetail?.run {
+                tvTitle.text = title
+                tvRuntime.text = "$runtime Minutes"
+                tvReviewCount.text = "$voteCount Reviews"
+                rbRatingBar.rating = (voteAverage.toFloat() / 2f)
+                llGenreContent.run {
+                    genres.map { createGenreItem(it) }.forEach(::addView)
+                }
+                tvSummaryContent.text = overview
+            }
+
+            if (casts.isNotEmpty()) {
+                tvCasts.visibility = VISIBLE
+                rvCasts.visibility = VISIBLE
+                castAdapter.notifyDataSetChanged()
+            } else {
+                tvCasts.visibility = GONE
+                rvCasts.visibility = GONE
+            }
         }
     }
 
@@ -115,4 +160,9 @@ class DetailFragment : BaseFragment(R.layout.fragment_detail) {
         )
         return colorList.get(Randomizer.generateNextInt(0, 4))
     }
+
+    private data class UIData(
+        var movieDetail: MovieDetail? = null,
+        var casts: MutableList<Cast> = mutableListOf()
+    )
 }
