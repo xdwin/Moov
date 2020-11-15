@@ -76,6 +76,7 @@ class SearchViewModelTest {
         assertTrue(slot.captured is BaseResult.Success)
         assertTrue((slot.captured as BaseResult.Success).data?.results?.size == 0)
         assertTrue(searchViewModel.page == 1)
+        searchViewModel.searchResult.removeObserver(observer)
     }
 
     @Test
@@ -95,6 +96,7 @@ class SearchViewModelTest {
         assertTrue(slot.captured is BaseResult.Success)
         assertTrue((slot.captured as BaseResult.Success).data?.results?.isNotEmpty() == true)
         assertTrue(searchViewModel.page == 1)
+        searchViewModel.searchResult.removeObserver(observer)
     }
 
     @Test
@@ -112,6 +114,7 @@ class SearchViewModelTest {
         // then
         verify { observer.onChanged(capture(slot)) }
         assertTrue(slot.captured !is BaseResult.Success)
+        searchViewModel.searchResult.removeObserver(observer)
     }
 
     @After

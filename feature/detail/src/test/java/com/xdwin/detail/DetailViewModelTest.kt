@@ -1,6 +1,5 @@
 package com.xdwin.detail
 
-import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.test.runner.AndroidJUnit4
@@ -9,19 +8,15 @@ import com.xdwin.data.data.Credits
 import com.xdwin.data.data.MovieDetail
 import com.xdwin.detail.detail.DetailRepository
 import com.xdwin.detail.detail.DetailViewModel
-import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.spyk
 import io.mockk.verify
-import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentCaptor
 import retrofit2.Response
 
 @RunWith(AndroidJUnit4::class)
@@ -71,6 +66,7 @@ class DetailViewModelTest {
         // exactly == 2, to prevent the intermediate state (loading state) to be captured
         verify(exactly = 2) { observer.onChanged(capture(slot)) }
         assertTrue(slot.captured is BaseResult.Success)
+        detailViewModel.detailMovie.removeObserver(observer)
     }
 
     @Test
@@ -87,6 +83,7 @@ class DetailViewModelTest {
         // then
         verify { observer.onChanged(capture(slot)) }
         assertTrue(slot.captured is BaseResult.Error)
+        detailViewModel.detailMovie.removeObserver(observer)
     }
 
     @Test
@@ -103,6 +100,7 @@ class DetailViewModelTest {
         // then
         verify { observer.onChanged(capture(slot)) }
         assertTrue(slot.captured is BaseResult.Success)
+        detailViewModel.credits.removeObserver(observer)
     }
 
     @Test
@@ -119,5 +117,6 @@ class DetailViewModelTest {
         // then
         verify { observer.onChanged(capture(slot)) }
         assertTrue(slot.captured is BaseResult.Error)
+        detailViewModel.credits.removeObserver(observer)
     }
 }
