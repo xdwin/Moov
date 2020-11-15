@@ -68,7 +68,8 @@ class DetailViewModelTest {
         detailViewModel.fetchPopularMovies(1)
 
         // then
-        verify { observer.onChanged(capture(slot)) }
+        // exactly == 2, to prevent the intermediate state (loading state) to be captured
+        verify(exactly = 2) { observer.onChanged(capture(slot)) }
         assertTrue(slot.captured is BaseResult.Success)
     }
 
