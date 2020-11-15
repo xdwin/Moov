@@ -78,6 +78,8 @@ object Version {
     const val mockTestRunner = "0.3.1"
     const val rules = "1.1.0"
     const val ext = "1.0.0"
+    const val mockk = "1.10.0"
+    const val roboelectric = "4.3"
 }
 
 object Core {
@@ -160,6 +162,9 @@ object Testing {
     val espressoIdleResources = "androidx.test.espresso:espresso-idling-resource:${Version.espresso}"
     val mockito = "org.mockito:mockito-inline:${Version.mockito}"
     val mockKtRunner = "de.jodamob.kotlin:kotlin-runner-junit4:${Version.mockTestRunner}"
+    val mockk = "io.mockk:mockk:${Version.mockk}"
+    val roboelectric = "org.robolectric:robolectric:${Version.roboelectric}"
+
     val androidX = "androidx.arch.core:core-testing:${Version.archLifecycle}"
     val rules = "androidx.test:rules:${Version.rules}"
     val core = "androidx.test:core:${Version.rules}"

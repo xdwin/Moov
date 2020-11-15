@@ -4,41 +4,41 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class MovieDetail(
-    val adult: Boolean,
+    val adult: Boolean = false,
     @SerializedName("backdrop_path")
-    val backdropPath: String?,
+    val backdropPath: String? = null,
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: Collection?,
-    val budget: Int,
-    val genres: List<Genre>,
-    val homepage: String,
-    val id: Int,
+    val belongsToCollection: Collection? = null,
+    val budget: Int = 0,
+    val genres: List<Genre> = listOf(),
+    val homepage: String = "",
+    val id: Int = 0,
     @SerializedName("imdbId")
-    val imdbId: String,
+    val imdbId: String = "",
     @SerializedName("original_language")
-    val originalLanguage: String,
+    val originalLanguage: String = "",
     @SerializedName("original_title")
-    val originalTitle: String,
-    val overview: String,
-    val popularity: Double,
+    val originalTitle: String = "",
+    val overview: String = "",
+    val popularity: Double = 0.0,
     @SerializedName("poster_path")
-    val posterPath: String?,
+    val posterPath: String? = null,
     @SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompany>,
+    val productionCompanies: List<ProductionCompany> = listOf(),
     @SerializedName("production_countries")
-    val productionCountries: List<ProductionCountry>,
+    val productionCountries: List<ProductionCountry> = listOf(),
     @SerializedName("release_date")
-    val releaseDate: String,
-    val revenue: Int,
-    val runtime: Int,
+    val releaseDate: String = "",
+    val revenue: Int = 0,
+    val runtime: Int = 0,
     @SerializedName("spoken_languages")
-    val spokenLanguages: List<SpokenLanguage>,
-    val status: String,
-    val tagline: String,
-    val title: String,
-    val video: Boolean,
+    val spokenLanguages: List<SpokenLanguage> = listOf(),
+    val status: String = "",
+    val tagline: String = "",
+    val title: String = "",
+    val video: Boolean = false,
     @SerializedName("vote_average")
-    val voteAverage: Double,
+    val voteAverage: Double = 0.0,
     @SerializedName("vote_count")
-    val voteCount: Int
+    val voteCount: Int = 0
 ) : Serializable
