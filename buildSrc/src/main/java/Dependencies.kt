@@ -22,7 +22,7 @@ object DefaultConfig {
     const val minSdkVersion = 21
     const val compileSdkVersion = 28
     const val targetSdkVersion = compileSdkVersion
-    const val buildToolsVersion = "29.0.0"
+    const val buildToolsVersion = "29.0.2"
 
     const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 }

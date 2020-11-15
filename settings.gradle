@@ -1,16 +1,15 @@
-//include ':app', ':abstraction', ':buildSrc'
-include Modules.app
+include ':app'
 
 // libraries
-include Modules.abstraction
-include Modules.data
+include ':libraries:abstraction'
+include ':libraries:data'
 
 // commons
-include Modules.commonViewModel
+include ':common:common_viewmodel'
 
 // features
-include Modules.home
-include Modules.detail
-include Modules.homelist
+include ':feature:home'
+include ':feature:detail'
+include ':feature:homelist'
 
 rootProject.name='Base'
