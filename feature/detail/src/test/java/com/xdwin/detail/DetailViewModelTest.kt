@@ -65,7 +65,8 @@ class DetailViewModelTest {
         // then
         // exactly == 2, to prevent the intermediate state (loading state) to be captured
         verify(exactly = 2) { observer.onChanged(capture(slot)) }
-        assertTrue(slot.captured is BaseResult.Success)
+        val captured = slot.captured
+        assertTrue(captured is BaseResult.Success || captured is BaseResult.Loading)
         detailViewModel.detailMovie.removeObserver(observer)
     }
 
