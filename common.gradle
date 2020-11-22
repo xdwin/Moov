@@ -39,6 +39,8 @@ android {
         unitTests.all {
             testLogging.events = ["passed", "skipped", "failed"]
         }
+        unitTests.returnDefaultValues = true
+        unitTests.includeAndroidResources = true
     }
 
     dependencies {
@@ -64,8 +66,10 @@ android {
         annotationProcessor Dagger.processor
 
         // test
-        implementation Testing.jUnit
-        androidTestImplementation Testing.testRunner
-        androidTestImplementation Testing.espresso
+        testImplementation Testing.coreTesting
+        testImplementation Testing.jUnit
+        testImplementation Testing.testRunner
+        testImplementation Testing.mockk
+        testImplementation Testing.roboelectric
     }
 }

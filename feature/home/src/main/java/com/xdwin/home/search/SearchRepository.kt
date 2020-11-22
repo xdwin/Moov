@@ -7,11 +7,6 @@ import retrofit2.Response
 import retrofit2.awaitResponse
 import javax.inject.Inject
 
-class SearchRepository @Inject constructor() {
-    suspend fun searchMovies(query: String, page: Int): Response<Movies> {
-        return ApiCreator.retrofit
-            .create(SearchService::class.java)
-            .searchMovies(query = query, page = page)
-            .awaitResponse()
-    }
+interface SearchRepository  {
+    suspend fun searchMovies(query: String, page: Int): Response<Movies>
 }

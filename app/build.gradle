@@ -68,7 +68,6 @@ dependencies {
     //releaseImplementation Flipper.flipperNoOp
 
     // test
-    implementation Testing.jUnit
-    androidTestImplementation Testing.testRunner
-    androidTestImplementation Testing.espresso
+    testImplementation Testing.jUnit
+    testImplementation Testing.testRunner
 }
