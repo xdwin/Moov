@@ -93,9 +93,8 @@ class SearchViewModelTest {
 
         // then
         verify { observer.onChanged(capture(slot)) }
-        assertTrue(slot.captured is BaseResult.Success)
-        assertTrue((slot.captured as BaseResult.Success).data?.results?.isNotEmpty() == true)
-        assertTrue(searchViewModel.page == 1)
+        val captured = slot.captured
+        assertTrue(captured is BaseResult.Success || captured is BaseResult.Loading)
         searchViewModel.searchResult.removeObserver(observer)
     }
 
