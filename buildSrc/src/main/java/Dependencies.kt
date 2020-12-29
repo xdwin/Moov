@@ -146,13 +146,6 @@ object Log {
     val stetho = "com.facebook.stetho:stetho-okhttp3:${Version.stetho}"
 }
 
-object Flipper {
-    val flipper = "com.facebook.flipper:flipper:${Version.flipper}"
-    val flipperNoOp = "com.facebook.flipper:flipper-noop:${Version.flipper}"
-    val flipperNetwork = "com.facebook.flipper:flipper-network-plugin:${Version.flipper}"
-    val soloader = "com.facebook.soloader:soloader:${Version.soloader}"
-}
-
 object Testing {
     val jUnit = "junit:junit:${Version.jUnit}"
     val testRunner = "androidx.test:runner:${Version.testRunner}"
@@ -175,6 +168,4 @@ object Testing {
 
 object Misc {
     val shimmer = "com.facebook.shimmer:shimmer:${Version.shimmer}"
-    //val deeplink = "com.airbnb:deeplinkdispatch:${Version.deeplink}"
-    //val deeplinkProcessor = "com.airbnb:deeplinkdispatch-processor:${Version.deeplink}"
 }

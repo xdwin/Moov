@@ -20,8 +20,4 @@ class MoovApplication : Application(),
     override fun createDetailComponent(): DetailComponent = appComponent.detailComponent().create()
 
     override fun createHomeListComponent(): HomeListComponent = appComponent.homeListComponent().create()
-
-    override fun onCreate() {
-        super.onCreate()
-    }
 }
