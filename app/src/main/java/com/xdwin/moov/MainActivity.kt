@@ -1,4 +1,4 @@
-package com.xdwin.base
+package com.xdwin.moov
 
 import android.os.Bundle
 import com.xdwin.abstraction.abstraction.BaseActivity

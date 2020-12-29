@@ -17,7 +17,7 @@ object BuildPlugins {
 object DefaultConfig {
     const val versionCode = 1
     const val versionName = "1.0"
-    const val applicationId = "com.xdwin.base"
+    const val applicationId = "com.xdwin.moov"
 
     const val minSdkVersion = 21
     const val compileSdkVersion = 28

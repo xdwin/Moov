@@ -1,4 +1,4 @@
-package com.xdwin.base
+package com.xdwin.moov
 
 import com.xdwin.detail.dagger.DetailComponent
 import com.xdwin.home.dagger.HomeComponent

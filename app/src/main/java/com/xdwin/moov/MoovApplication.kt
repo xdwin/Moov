@@ -1,4 +1,4 @@
-package com.xdwin.base
+package com.xdwin.moov
 
 import android.app.Application
 import com.xdwin.detail.dagger.DetailComponent
