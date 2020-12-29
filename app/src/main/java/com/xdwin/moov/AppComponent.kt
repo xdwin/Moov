@@ -1,8 +1,8 @@
 package com.xdwin.moov
 
 import com.xdwin.abstraction.dagger.ViewModelModule
-import com.xdwin.detail.dagger.DetailComponent
-import com.xdwin.home.dagger.HomeComponent
+import com.xdwin.moov.features.detail.dagger.DetailComponent
+import com.xdwin.moov.features.home.dagger.HomeComponent
 import com.xdwin.homelist.dagger.HomeListComponent
 import dagger.Component
 import javax.inject.Singleton

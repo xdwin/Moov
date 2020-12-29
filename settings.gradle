@@ -9,7 +9,7 @@ include ':common:common_viewmodel'
 
 // features
 include ':features:home'
-include ':features:detail'
 include ':features:homelist'
+include ':features:detail'
 
 rootProject.name='Moov'

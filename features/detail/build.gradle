@@ -15,7 +15,7 @@ dependencies {
     implementation Design.cardView
     implementation Design.recyclerView
     implementation Design.constraintLayout
-    
+
     // retrofit
     implementation Retrofit.retrofit
     implementation Android.gson

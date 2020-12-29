@@ -1,10 +1,10 @@
 package com.xdwin.moov
 
 import android.app.Application
-import com.xdwin.detail.dagger.DetailComponent
-import com.xdwin.detail.dagger.DetailComponentCreator
-import com.xdwin.home.dagger.HomeComponent
-import com.xdwin.home.dagger.HomeComponentCreator
+import com.xdwin.moov.features.detail.dagger.DetailComponent
+import com.xdwin.moov.features.detail.dagger.DetailComponentCreator
+import com.xdwin.moov.features.home.dagger.HomeComponent
+import com.xdwin.moov.features.home.dagger.HomeComponentCreator
 import com.xdwin.homelist.dagger.HomeListComponent
 import com.xdwin.homelist.dagger.HomeListComponentCreator
 

@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.xdwin.detail.detail.DetailFragment"
+        android:name="com.xdwin.moov.features.detail.detail.DetailFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

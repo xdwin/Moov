@@ -2,9 +2,9 @@ package com.xdwin.moov
 
 import android.os.Bundle
 import com.xdwin.abstraction.abstraction.BaseActivity
-import com.xdwin.home.home.HomeFragment
-import com.xdwin.home.home.HomeSwitchFragmentListener
-import com.xdwin.home.search.SearchFragment
+import com.xdwin.moov.features.home.home.HomeFragment
+import com.xdwin.moov.features.home.home.HomeSwitchFragmentListener
+import com.xdwin.moov.features.home.search.SearchFragment
 
 class MainActivity : BaseActivity(), HomeSwitchFragmentListener {
 
@@ -16,7 +16,7 @@ class MainActivity : BaseActivity(), HomeSwitchFragmentListener {
     // fragment region
     private fun setDefaultFragment() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.add(com.xdwin.home.R.id.container, HomeFragment()).commit()
+        fragmentTransaction.add(R.id.container, HomeFragment()).commit()
     }
 
     override fun switchToHomeFragment() {
@@ -24,7 +24,7 @@ class MainActivity : BaseActivity(), HomeSwitchFragmentListener {
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.remove(currentFragment!!)
-        fragmentTransaction.add(com.xdwin.home.R.id.container, HomeFragment()).commit()
+        fragmentTransaction.add(R.id.container, HomeFragment()).commit()
     }
 
     override fun switchToSearchFragment() {
@@ -32,7 +32,7 @@ class MainActivity : BaseActivity(), HomeSwitchFragmentListener {
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.remove(currentFragment!!)
-        fragmentTransaction.add(com.xdwin.home.R.id.container, SearchFragment()).commit()
+        fragmentTransaction.add(R.id.container, SearchFragment()).commit()
     }
     // endregion
 }
