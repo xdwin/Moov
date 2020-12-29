@@ -3,7 +3,6 @@ package com.xdwin.detail.detail
 import com.xdwin.data.api.ApiCreator
 import com.xdwin.data.api.service.MovieService
 import com.xdwin.data.data.Credits
-import com.xdwin.data.data.Movie
 import com.xdwin.data.data.MovieDetail
 import retrofit2.Response
 import retrofit2.awaitResponse

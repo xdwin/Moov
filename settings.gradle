@@ -8,8 +8,8 @@ include ':libraries:data'
 include ':common:common_viewmodel'
 
 // features
-include ':feature:home'
-include ':feature:detail'
-include ':feature:homelist'
+include ':features:home'
+include ':features:detail'
+include ':features:homelist'
 
-rootProject.name='Base'
+rootProject.name='Moov'
