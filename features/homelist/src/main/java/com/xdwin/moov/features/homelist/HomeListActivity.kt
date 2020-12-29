@@ -1,4 +1,4 @@
-package com.xdwin.homelist
+package com.xdwin.moov.features.homelist
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

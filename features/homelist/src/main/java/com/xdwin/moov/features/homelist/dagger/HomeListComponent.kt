@@ -1,7 +1,6 @@
-package com.xdwin.homelist.dagger
+package com.xdwin.moov.features.homelist.dagger
 
 import com.xdwin.common.viewmodel.dagger.CommonViewModelModule
-import com.xdwin.homelist.HomeListFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = [CommonViewModelModule::class])
@@ -12,5 +11,5 @@ interface HomeListComponent {
         fun create(): HomeListComponent
     }
 
-    fun inject(homeListFragment: HomeListFragment)
+    fun inject(homeListFragment: com.xdwin.moov.features.homelist.HomeListFragment)
 }

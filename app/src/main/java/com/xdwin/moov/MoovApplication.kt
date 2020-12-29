@@ -5,8 +5,8 @@ import com.xdwin.moov.features.detail.dagger.DetailComponent
 import com.xdwin.moov.features.detail.dagger.DetailComponentCreator
 import com.xdwin.moov.features.home.dagger.HomeComponent
 import com.xdwin.moov.features.home.dagger.HomeComponentCreator
-import com.xdwin.homelist.dagger.HomeListComponent
-import com.xdwin.homelist.dagger.HomeListComponentCreator
+import com.xdwin.moov.features.homelist.dagger.HomeListComponent
+import com.xdwin.moov.features.homelist.dagger.HomeListComponentCreator
 
 class MoovApplication : Application(),
     HomeComponentCreator,

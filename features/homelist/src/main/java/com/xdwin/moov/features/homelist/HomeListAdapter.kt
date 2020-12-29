@@ -1,4 +1,4 @@
-package com.xdwin.homelist
+package com.xdwin.moov.features.homelist
 
 import android.view.LayoutInflater
 import android.view.View

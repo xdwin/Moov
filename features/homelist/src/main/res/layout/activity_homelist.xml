@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.xdwin.homelist.HomeListFragment"
+        android:name="com.xdwin.moov.features.homelist.HomeListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

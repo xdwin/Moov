@@ -1,4 +1,4 @@
-package com.xdwin.homelist
+package com.xdwin.moov.features.homelist
 
 import org.junit.Test
 

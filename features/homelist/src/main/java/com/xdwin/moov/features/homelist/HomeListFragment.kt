@@ -1,10 +1,9 @@
-package com.xdwin.homelist
+package com.xdwin.moov.features.homelist
 
 import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.xdwin.abstraction.Constants
@@ -18,8 +17,8 @@ import com.xdwin.common.viewmodel.vm.TopRatedViewModel
 import com.xdwin.data.api.BaseResult
 import com.xdwin.data.data.Movie
 import com.xdwin.data.data.Movies
-import com.xdwin.homelist.dagger.HomeListComponent
-import com.xdwin.homelist.dagger.HomeListComponentCreator
+import com.xdwin.moov.features.homelist.dagger.HomeListComponent
+import com.xdwin.moov.features.homelist.dagger.HomeListComponentCreator
 import kotlinx.android.synthetic.main.fragment_homelist.*
 import javax.inject.Inject
 
