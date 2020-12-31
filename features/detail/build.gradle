@@ -1,0 +1,27 @@
+apply from: "$rootDir/common.gradle"
+
+dependencies {
+    // dependencies
+    implementation project(Modules.abstraction)
+    implementation project(Modules.data)
+
+    // jetpack
+    implementation Jetpack.lifecycle
+    kapt Jetpack.lifecycleCompiler
+    implementation Jetpack.viewModel
+
+    // component
+    implementation Design.design
+    implementation Design.cardView
+    implementation Design.recyclerView
+    implementation Design.constraintLayout
+
+    // retrofit
+    implementation Retrofit.retrofit
+    implementation Android.gson
+    implementation Retrofit.gsonConverter
+
+    // glide
+    implementation Glide.glide
+    kapt Glide.compiler
+}
