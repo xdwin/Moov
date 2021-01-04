@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.xdwin.abstraction.R
+import com.xdwin.moov.libraries.abstraction.R
 
 /**
  * Used to bind simple static view to RecyclerView.Adapter
