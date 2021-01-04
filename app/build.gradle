@@ -61,6 +61,10 @@ dependencies {
     api Dagger.androidSupport
     annotationProcessor Dagger.processor
 
+    // hilt
+    implementation Hilt.hilt
+    kapt Hilt.hiltCompiler
+
     // flipper
     //debugImplementation Flipper.flipper
     //debugImplementation Flipper.soloader

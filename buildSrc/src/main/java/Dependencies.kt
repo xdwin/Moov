@@ -62,6 +62,7 @@ object Version {
 
     // depedency injection
     const val dagger = "2.26"
+    const val hilt = "2.28-alpha"
 
     // flipper
     const val flipper = "0.51.0"
@@ -135,6 +136,12 @@ object Dagger {
     val androidSupport = "com.google.dagger:dagger-android-support:${Version.dagger}"
     val compiler = "com.google.dagger:dagger-compiler:${Version.dagger}"
     val processor = "com.google.dagger:dagger-android-processor:${Version.dagger}"
+}
+
+object Hilt {
+    val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Version.hilt}"
+    val hilt = "com.google.dagger:hilt-android:${Version.hilt}"
+    val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Version.hilt}"
 }
 
 object Room {

@@ -65,6 +65,10 @@ android {
         api Dagger.androidSupport
         annotationProcessor Dagger.processor
 
+        // hilt
+        implementation Hilt.hilt
+        kapt Hilt.hiltCompiler
+
         // test
         testImplementation Testing.coreTesting
         testImplementation Testing.jUnit
