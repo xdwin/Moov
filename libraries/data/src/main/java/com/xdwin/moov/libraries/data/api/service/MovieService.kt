@@ -1,9 +1,8 @@
 package com.xdwin.data.api.service
 
-import com.xdwin.data.BuildConfig
 import com.xdwin.data.data.Credits
-import com.xdwin.data.data.Movie
 import com.xdwin.data.data.MovieDetail
+import com.xdwin.moov.libraries.data.BuildConfig
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

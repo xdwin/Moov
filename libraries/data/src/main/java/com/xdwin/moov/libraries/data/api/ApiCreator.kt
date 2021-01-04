@@ -1,6 +1,7 @@
 package com.xdwin.data.api
 
 import com.xdwin.data.URLS.BASE_URL_MOVIEDB
+import com.xdwin.moov.libraries.data.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -28,7 +29,7 @@ object ApiCreator {
         return object : Interceptor {
             override fun intercept(chain: Interceptor.Chain): Response {
                 val request = chain.request().newBuilder()
-                    .addHeader("api_key", "355c2729253ec43ce8eeafc5fecff1dd")
+                    .addHeader("api_key", BuildConfig.MOVIE_API_KEY)
                     .build()
                 return chain.proceed(request)
             }
