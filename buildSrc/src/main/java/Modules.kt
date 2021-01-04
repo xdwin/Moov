@@ -9,7 +9,7 @@ object Modules {
     val commonViewModel = ":common:common_viewmodel"
 
     // features
-    val home = ":feature:home"
-    val detail = ":feature:detail"
-    val homelist = ":feature:homelist"
+    val home = ":features:home"
+    val detail = ":features:detail"
+    val homelist = ":features:homelist"
 }
