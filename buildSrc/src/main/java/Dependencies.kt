@@ -62,6 +62,7 @@ object Version {
 
     // depedency injection
     const val dagger = "2.26"
+    const val koin = "2.2.0"
 
     // flipper
     const val flipper = "0.51.0"
@@ -135,6 +136,13 @@ object Dagger {
     val androidSupport = "com.google.dagger:dagger-android-support:${Version.dagger}"
     val compiler = "com.google.dagger:dagger-compiler:${Version.dagger}"
     val processor = "com.google.dagger:dagger-android-processor:${Version.dagger}"
+}
+
+object Koin {
+    val koinAndroid = "org.koin:koin-android:${Version.koin}"
+    val koinScope = "org.koin:koin-androidx-scope:${Version.koin}"
+    val koinViewModel = "org.koin:koin-androidx-viewmodel:${Version.koin}"
+    val koinFragment = "org.koin:koin-androidx-fragment:${Version.koin}"
 }
 
 object Room {

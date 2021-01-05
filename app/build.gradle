@@ -61,6 +61,12 @@ dependencies {
     api Dagger.androidSupport
     annotationProcessor Dagger.processor
 
+    // koin
+    implementation Koin.koinAndroid
+    implementation Koin.koinFragment
+    implementation Koin.koinScope
+    implementation Koin.koinViewModel
+
     // flipper
     //debugImplementation Flipper.flipper
     //debugImplementation Flipper.soloader

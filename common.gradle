@@ -65,6 +65,12 @@ android {
         api Dagger.androidSupport
         annotationProcessor Dagger.processor
 
+        // koin
+        implementation Koin.koinAndroid
+        implementation Koin.koinFragment
+        implementation Koin.koinScope
+        implementation Koin.koinViewModel
+
         // test
         testImplementation Testing.coreTesting
         testImplementation Testing.jUnit
