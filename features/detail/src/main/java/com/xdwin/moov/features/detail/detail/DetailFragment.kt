@@ -10,12 +10,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.xdwin.abstraction.Constants
 import com.xdwin.abstraction.Randomizer
 import com.xdwin.abstraction.abstraction.BaseFragment
-import com.xdwin.abstraction.dagger.ViewModelFactory
 import com.xdwin.abstraction.ext.dp
 import com.xdwin.abstraction.ext.setupHorizontalAdapter
 import com.xdwin.data.URLS
@@ -24,20 +22,13 @@ import com.xdwin.data.data.Cast
 import com.xdwin.data.data.Genre
 import com.xdwin.data.data.MovieDetail
 import com.xdwin.moov.features.detail.R
-import com.xdwin.moov.features.detail.dagger.DetailComponent
-import com.xdwin.moov.features.detail.dagger.DetailComponentCreator
 import kotlinx.android.synthetic.main.fragment_detail.*
-import javax.inject.Inject
+import org.koin.android.ext.android.get
 
 class DetailFragment : BaseFragment(R.layout.fragment_detail) {
 
-    // component
-    lateinit var detailComponent: DetailComponent
-
     // model
-    @Inject
-    lateinit var modelFactory: ViewModelFactory
-    private lateinit var model: DetailViewModel
+    val model: DetailViewModel = get()
 
     // data
     private var movieId: Int = -1
@@ -48,16 +39,7 @@ class DetailFragment : BaseFragment(R.layout.fragment_detail) {
         CastAndCrewAdapter(uiData.casts)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        detailComponent = (context.applicationContext as DetailComponentCreator).createDetailComponent()
-        detailComponent.inject(this)
-    }
-
-    override fun initDependency() {
-        model = ViewModelProviders.of(this, modelFactory)
-            .get(DetailViewModel::class.java)
-    }
+    override fun initDependency() {}
 
     override fun initView() {
         val intent = activity?.intent
