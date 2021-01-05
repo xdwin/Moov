@@ -1,6 +1,5 @@
 package com.xdwin.moov.features.detail.detail
 
-import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.view.View.*

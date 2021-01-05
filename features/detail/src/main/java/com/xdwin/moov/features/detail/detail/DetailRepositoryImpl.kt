@@ -6,9 +6,8 @@ import com.xdwin.data.data.Credits
 import com.xdwin.data.data.MovieDetail
 import retrofit2.Response
 import retrofit2.awaitResponse
-import javax.inject.Inject
 
-class DetailRepositoryImpl @Inject constructor() : DetailRepository {
+class DetailRepositoryImpl : DetailRepository {
     override suspend fun getMovieDetail(movieId: Int): Response<MovieDetail> {
         return ApiCreator.retrofit
             .create(MovieService::class.java)

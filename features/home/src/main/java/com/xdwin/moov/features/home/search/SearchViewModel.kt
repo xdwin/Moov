@@ -8,9 +8,8 @@ import com.xdwin.data.api.BaseResult
 import com.xdwin.data.data.Movies
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class SearchViewModel @Inject constructor(val repository: SearchRepository) : ViewModel() {
+class SearchViewModel(val repository: SearchRepository) : ViewModel() {
     private val _searchResult: MutableLiveData<BaseResult<Movies>> = MutableLiveData()
     val searchResult: LiveData<BaseResult<Movies>> = _searchResult
 

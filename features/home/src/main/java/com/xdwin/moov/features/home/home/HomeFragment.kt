@@ -4,45 +4,39 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.MergeAdapter
 import com.xdwin.abstraction.Constants
-import com.xdwin.abstraction.listener.BackPressedListener
 import com.xdwin.abstraction.abstraction.BaseActivity
 import com.xdwin.abstraction.abstraction.BaseFragment
 import com.xdwin.abstraction.adapter.StaticAdapter
 import com.xdwin.abstraction.ext.setupMergeAdapter
-import com.xdwin.common.viewmodel.HomeListMode
+import com.xdwin.abstraction.listener.BackPressedListener
+import com.xdwin.common.viewmodel.HomeViewModelType
 import com.xdwin.common.viewmodel.vm.NowPlayingViewModel
 import com.xdwin.common.viewmodel.vm.PopularViewModel
 import com.xdwin.common.viewmodel.vm.TopRatedViewModel
 import com.xdwin.data.api.BaseResult
 import com.xdwin.data.data.Movie
 import com.xdwin.moov.features.home.R
-import com.xdwin.moov.features.home.dagger.HomeComponent
-import com.xdwin.moov.features.home.dagger.HomeComponentCreator
-import com.xdwin.moov.features.home.home.adapter.HomeFeaturedAdapter
 import com.xdwin.moov.features.home.home.adapter.HomeCardLoadingAdapter
 import com.xdwin.moov.features.home.home.adapter.HomeCardSectionAdapter
+import com.xdwin.moov.features.home.home.adapter.HomeFeaturedAdapter
 import com.xdwin.moov.features.home.home.adapter.HomeFeaturedLoadingAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.qualifier
 
 class HomeFragment : BaseFragment(R.layout.fragment_home),
     BackPressedListener {
 
     lateinit var activitySwitchListener: HomeSwitchFragmentListener
-    lateinit var homeComponent: HomeComponent
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var nowPlayingViewModel: NowPlayingViewModel
-    private lateinit var popularViewModel: PopularViewModel
-    private lateinit var topRatedViewModel: TopRatedViewModel
+    val nowPlayingViewModel: NowPlayingViewModel by viewModel()
+    val popularViewModel: PopularViewModel by viewModel()
+    val topRatedViewModel: TopRatedViewModel by viewModel()
 
     private var nowPlayingMovies = mutableListOf<Movie>()
     private var topRatedMovies = mutableListOf<Movie>()
@@ -56,7 +50,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
     }
 
     // todo @xdwin fix this (above and below) inconsistensies
-    fun onSeeAllClickListener(mode: HomeListMode): () -> Unit {
+    fun onSeeAllClickListener(mode: HomeViewModelType): () -> Unit {
         return {
             val uri = Constants.NAV_URI_HOMELIST.toUri()
             val intent = Intent(Intent.ACTION_VIEW, uri)
@@ -81,7 +75,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
             "Featured",
             nowPlayingMovies,
             onMovieClickListener,
-            onSeeAllClickListener(HomeListMode.NOWPLAYING)
+            onSeeAllClickListener(HomeViewModelType.NOWPLAYING)
         )
     }
 
@@ -90,7 +84,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
             "Top Rated",
             topRatedMovies,
             onMovieClickListener,
-            onSeeAllClickListener(HomeListMode.TOPRATED)
+            onSeeAllClickListener(HomeViewModelType.TOPRATED)
         )
     }
 
@@ -99,7 +93,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
             "Most Popular",
             popularMovies,
             onMovieClickListener,
-            onSeeAllClickListener(HomeListMode.POPULAR)
+            onSeeAllClickListener(HomeViewModelType.POPULAR)
         )
     }
 
@@ -120,8 +114,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
     }
 
     override fun onAttach(context: Context) {
-        homeComponent = (context.applicationContext as HomeComponentCreator).createHomeComponent()
-        homeComponent.inject(this)
         if (context is BaseActivity) {
             context.onBackPressedListener = this
         }
@@ -132,12 +124,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
     }
 
     override fun initDependency() {
-        popularViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(PopularViewModel::class.java)
-        nowPlayingViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(NowPlayingViewModel::class.java)
-        topRatedViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(TopRatedViewModel::class.java)
+
     }
 
     override fun initView() {
@@ -151,15 +138,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
     }
 
     private fun fetchMovies() {
-        val nowPlayingAsync = async { nowPlayingViewModel.fetchData() }
-        val topRatedAsync = async { topRatedViewModel.fetchData() }
-        val popularAsync = async { popularViewModel.fetchData() }
-
-        launch(Dispatchers.IO) {
-            nowPlayingAsync.await()
-            topRatedAsync.await()
-            popularAsync.await()
-        }
+        nowPlayingViewModel.fetchData()
+        topRatedViewModel.fetchData()
+        popularViewModel.fetchData()
     }
 
     private fun observeMovies() {

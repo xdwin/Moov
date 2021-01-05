@@ -3,15 +3,14 @@ package com.xdwin.common.viewmodel.vm
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.xdwin.common.viewmodel.HomeRepository
+import com.xdwin.common.viewmodel.repository.HomeRepository
 import com.xdwin.data.api.BaseResult
 import com.xdwin.data.data.Movie
 import com.xdwin.data.data.Movies
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class PopularViewModel @Inject constructor(
+class PopularViewModel(
     val repository: HomeRepository
 ) : BaseMovieViewModel<Movies>() {
 

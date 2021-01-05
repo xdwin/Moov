@@ -9,9 +9,8 @@ import com.xdwin.data.data.Credits
 import com.xdwin.data.data.MovieDetail
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class DetailViewModel @Inject constructor(val repo: DetailRepository) : ViewModel() {
+class DetailViewModel(val repo: DetailRepository) : ViewModel() {
 
     private var _detailMovie = MutableLiveData<BaseResult<MovieDetail>>()
     val detailMovie: LiveData<BaseResult<MovieDetail>> get() = _detailMovie
