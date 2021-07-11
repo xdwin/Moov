@@ -79,7 +79,7 @@ object Version {
     const val rules = "1.1.0"
     const val ext = "1.0.0"
     const val mockk = "1.10.0"
-    const val roboelectric = "4.3"
+    const val roboelectric = "4.4"
 }
 
 object Core {

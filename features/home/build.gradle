@@ -17,11 +17,6 @@ dependencies {
     implementation Design.recyclerView
     implementation Design.constraintLayout
 
-    // retrofit
-    implementation Retrofit.retrofit
-    implementation Android.gson
-    implementation Retrofit.gsonConverter
-
     // glide
     implementation Glide.glide
     kapt Glide.compiler
