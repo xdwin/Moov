@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.shopify.testify'
 
 android {
     compileSdkVersion DefaultConfig.compileSdkVersion
@@ -71,5 +72,12 @@ android {
         testImplementation Testing.testRunner
         testImplementation Testing.mockk
         testImplementation Testing.roboelectric
+
+        // android test
+        androidTestImplementation Testing.coreTesting
+        androidTestImplementation Testing.jUnit
+        androidTestImplementation Testing.testRunner
+        androidTestImplementation Testing.mockk
+        androidTestImplementation Testing.roboelectric
     }
 }
