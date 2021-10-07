@@ -20,7 +20,7 @@ object DefaultConfig {
     const val applicationId = "com.xdwin.moov"
 
     const val minSdkVersion = 21
-    const val compileSdkVersion = 28
+    const val compileSdkVersion = 31
     const val targetSdkVersion = compileSdkVersion
     const val buildToolsVersion = "29.0.2"
 
@@ -36,7 +36,8 @@ object Version {
     //androidx
     const val constraintLayout = "1.1.3"
     const val appCompat = "1.0.0"
-    const val ktx = "1.0.1"
+    const val coreKtx = "1.6.0"
+    const val fragmentKtx = "1.3.6"
 
     // lifecycle
     const val archLifecycle = "2.0.0"
@@ -62,7 +63,7 @@ object Version {
 
     // depedency injection
     const val dagger = "2.26"
-    const val hilt = "2.28-alpha"
+    const val hilt = "2.39.1"
 
     // flipper
     const val flipper = "0.51.0"
@@ -91,7 +92,8 @@ object Core {
 
 object Android {
     val appCompat = "androidx.appcompat:appcompat:${Version.appCompat}"
-    val ktx = "androidx.core:core-ktx:${Version.ktx}"
+    val coreKtx = "androidx.core:core-ktx:${Version.coreKtx}"
+    val fragmentKtx = "androidx.fragment:fragment-ktx:${Version.fragmentKtx}"
     val gson = "com.google.code.gson:gson:${Version.gson}"
 }
 

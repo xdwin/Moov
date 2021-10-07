@@ -8,15 +8,13 @@ import com.xdwin.moov.features.home.search.SearchViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.multibindings.IntoMap
 
 @Module
+@InstallIn(ViewModelComponent::class)
 abstract class SearchViewModelModule {
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(SearchViewModel::class)
-    internal abstract fun searchViewModel(viewModel: SearchViewModel): ViewModel
 
     companion object {
         @Provides

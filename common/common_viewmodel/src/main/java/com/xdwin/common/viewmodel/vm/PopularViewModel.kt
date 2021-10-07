@@ -7,10 +7,12 @@ import com.xdwin.common.viewmodel.HomeRepository
 import com.xdwin.data.api.BaseResult
 import com.xdwin.data.data.Movie
 import com.xdwin.data.data.Movies
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class PopularViewModel @Inject constructor(
     val repository: HomeRepository
 ) : BaseMovieViewModel<Movies>() {
@@ -34,7 +36,7 @@ class PopularViewModel @Inject constructor(
         }
     }
 
-    override fun fetchData() {
+    override suspend fun fetchData() {
         fetchPopularMovies()
     }
 

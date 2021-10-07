@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
@@ -25,6 +27,7 @@ class ViewModelFactory @Inject constructor(
 annotation class ViewModelKey(val value: KClass<out ViewModel>)
 
 @Module
+@InstallIn(ViewModelComponent::class)
 abstract class ViewModelModule {
     @Binds
     internal abstract fun bindViewModelFactory(

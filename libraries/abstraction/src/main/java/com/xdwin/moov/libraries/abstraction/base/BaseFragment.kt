@@ -3,11 +3,14 @@ package com.xdwin.abstraction.abstraction
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
+@AndroidEntryPoint
 abstract class BaseFragment(contentView: Int) : Fragment(contentView), CoroutineScope {
 
     val job = SupervisorJob()
@@ -16,7 +19,7 @@ abstract class BaseFragment(contentView: Int) : Fragment(contentView), Coroutine
         get() = job + Dispatchers.Default
 
     abstract fun initDependency()
-    abstract fun initView()
+    abstract suspend fun initView()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,8 @@ abstract class BaseFragment(contentView: Int) : Fragment(contentView), Coroutine
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
+        launch(Dispatchers.Main) {
+            initView()
+        }
     }
 }

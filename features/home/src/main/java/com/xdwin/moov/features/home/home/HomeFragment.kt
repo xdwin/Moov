@@ -3,6 +3,7 @@ package com.xdwin.moov.features.home.home
 import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -20,29 +21,27 @@ import com.xdwin.common.viewmodel.vm.TopRatedViewModel
 import com.xdwin.data.api.BaseResult
 import com.xdwin.data.data.Movie
 import com.xdwin.moov.features.home.R
-import com.xdwin.moov.features.home.dagger.HomeComponent
-import com.xdwin.moov.features.home.dagger.HomeComponentCreator
 import com.xdwin.moov.features.home.home.adapter.HomeFeaturedAdapter
 import com.xdwin.moov.features.home.home.adapter.HomeCardLoadingAdapter
 import com.xdwin.moov.features.home.home.adapter.HomeCardSectionAdapter
 import com.xdwin.moov.features.home.home.adapter.HomeFeaturedLoadingAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment(R.layout.fragment_home),
     BackPressedListener {
 
     lateinit var activitySwitchListener: HomeSwitchFragmentListener
-    lateinit var homeComponent: HomeComponent
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var nowPlayingViewModel: NowPlayingViewModel
-    private lateinit var popularViewModel: PopularViewModel
-    private lateinit var topRatedViewModel: TopRatedViewModel
+    private val nowPlayingViewModel: NowPlayingViewModel by viewModels()
+    private val popularViewModel: PopularViewModel by viewModels()
+    private val topRatedViewModel: TopRatedViewModel by viewModels()
 
     private var nowPlayingMovies = mutableListOf<Movie>()
     private var topRatedMovies = mutableListOf<Movie>()
@@ -120,8 +119,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
     }
 
     override fun onAttach(context: Context) {
-        homeComponent = (context.applicationContext as HomeComponentCreator).createHomeComponent()
-        homeComponent.inject(this)
         if (context is BaseActivity) {
             context.onBackPressedListener = this
         }
@@ -131,19 +128,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
         super.onAttach(context)
     }
 
-    override fun initDependency() {
-        popularViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(PopularViewModel::class.java)
-        nowPlayingViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(NowPlayingViewModel::class.java)
-        topRatedViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(TopRatedViewModel::class.java)
-    }
+    override fun initDependency() {}
 
-    override fun initView() {
+    override suspend fun initView() {
         setupRecyclerView()
-        fetchMovies()
         observeMovies()
+        fetchMovies()
     }
 
     private fun setupRecyclerView() {
@@ -151,9 +141,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
     }
 
     private fun fetchMovies() {
-        val nowPlayingAsync = async { nowPlayingViewModel.fetchData() }
-        val topRatedAsync = async { topRatedViewModel.fetchData() }
-        val popularAsync = async { popularViewModel.fetchData() }
+        val nowPlayingAsync = async(Dispatchers.IO) { nowPlayingViewModel.fetchData() }
+        val topRatedAsync = async(Dispatchers.IO) { topRatedViewModel.fetchData() }
+        val popularAsync = async(Dispatchers.IO) { popularViewModel.fetchData() }
 
         launch(Dispatchers.IO) {
             nowPlayingAsync.await()
@@ -164,7 +154,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home),
 
     private fun observeMovies() {
         val rvAdapter = recyclerView.adapter as MergeAdapter
-
         nowPlayingViewModel.observeData().observe(this, Observer {
             when(it) {
                 is BaseResult.Loading -> {

@@ -5,7 +5,9 @@ import com.xdwin.abstraction.abstraction.BaseActivity
 import com.xdwin.moov.features.home.home.HomeFragment
 import com.xdwin.moov.features.home.home.HomeSwitchFragmentListener
 import com.xdwin.moov.features.home.search.SearchFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity(), HomeSwitchFragmentListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {

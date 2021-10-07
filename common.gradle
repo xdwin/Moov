@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion DefaultConfig.compileSdkVersion
@@ -47,14 +48,15 @@ android {
         // core
         implementation Core.kotlin
         implementation Android.appCompat
-        implementation Android.ktx
+        implementation Android.coreKtx
+        implementation Android.fragmentKtx
 
         // coroutines
         implementation Coroutines.core
         implementation Coroutines.android
 
         // retrofit
-        implementation Retrofit.retrofit
+        api Retrofit.retrofit
         implementation Android.gson
         implementation Retrofit.gsonConverter
 
