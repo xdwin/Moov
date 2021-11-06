@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion DefaultConfig.compileSdkVersion
@@ -29,6 +30,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -48,7 +53,7 @@ dependencies {
     // core
     implementation Core.kotlin
     implementation Android.appCompat
-    implementation Android.ktx
+    implementation Android.coreKtx
 
     // coroutines
     implementation Coroutines.core
@@ -60,6 +65,10 @@ dependencies {
     api Dagger.android
     api Dagger.androidSupport
     annotationProcessor Dagger.processor
+
+    // hilt
+    implementation Hilt.hilt
+    kapt Hilt.hiltCompiler
 
     // flipper
     //debugImplementation Flipper.flipper

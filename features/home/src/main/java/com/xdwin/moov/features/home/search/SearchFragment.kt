@@ -6,35 +6,29 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.net.toUri
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.xdwin.abstraction.Constants
-import com.xdwin.abstraction.listener.BackPressedListener
 import com.xdwin.abstraction.abstraction.BaseActivity
 import com.xdwin.abstraction.abstraction.BaseFragment
-import com.xdwin.abstraction.dagger.ViewModelFactory
 import com.xdwin.abstraction.ext.setupVerticalAdapter
 import com.xdwin.abstraction.ext.showSoftKeyboard
+import com.xdwin.abstraction.listener.BackPressedListener
 import com.xdwin.abstraction.listener.EndlessRecyclerScrollListener
 import com.xdwin.data.api.BaseResult
 import com.xdwin.data.data.Movie
 import com.xdwin.moov.features.home.R
-import com.xdwin.moov.features.home.dagger.HomeComponent
-import com.xdwin.moov.features.home.dagger.HomeComponentCreator
 import com.xdwin.moov.features.home.home.HomeSwitchFragmentListener
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.item_search_section.*
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class SearchFragment : BaseFragment(R.layout.fragment_search),
     BackPressedListener {
 
     lateinit var activitySwitchListener: HomeSwitchFragmentListener
-    lateinit var searchComponent: HomeComponent
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var searchViewModel: SearchViewModel
+    private val searchViewModel: SearchViewModel by viewModels()
 
     private var movies = mutableListOf<Movie>()
     private val onMovieClickListener: ((Movie) -> Unit) = {
@@ -58,21 +52,15 @@ class SearchFragment : BaseFragment(R.layout.fragment_search),
         if (context is HomeSwitchFragmentListener) {
             activitySwitchListener = context
         }
-        searchComponent = (context.applicationContext as HomeComponentCreator).createHomeComponent()
-        searchComponent.inject(this)
         super.onAttach(context)
     }
 
-    override fun initDependency() {
-        searchViewModel = ViewModelProviders
-            .of(this, viewModelFactory)
-            .get(SearchViewModel::class.java)
-    }
+    override fun initDependency() {}
 
-    override fun initView() {
+    override suspend fun initView() {
         setupRecyclerView()
-        setupSearchBar()
         observeSearchResult()
+        setupSearchBar()
     }
 
     private fun setupRecyclerView() {

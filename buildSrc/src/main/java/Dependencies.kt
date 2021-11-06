@@ -20,7 +20,7 @@ object DefaultConfig {
     const val applicationId = "com.xdwin.moov"
 
     const val minSdkVersion = 21
-    const val compileSdkVersion = 28
+    const val compileSdkVersion = 31
     const val targetSdkVersion = compileSdkVersion
     const val buildToolsVersion = "29.0.2"
 
@@ -36,7 +36,8 @@ object Version {
     //androidx
     const val constraintLayout = "1.1.3"
     const val appCompat = "1.0.0"
-    const val ktx = "1.0.1"
+    const val coreKtx = "1.6.0"
+    const val fragmentKtx = "1.3.6"
 
     // lifecycle
     const val archLifecycle = "2.0.0"
@@ -62,6 +63,7 @@ object Version {
 
     // depedency injection
     const val dagger = "2.26"
+    const val hilt = "2.39.1"
 
     // flipper
     const val flipper = "0.51.0"
@@ -90,7 +92,8 @@ object Core {
 
 object Android {
     val appCompat = "androidx.appcompat:appcompat:${Version.appCompat}"
-    val ktx = "androidx.core:core-ktx:${Version.ktx}"
+    val coreKtx = "androidx.core:core-ktx:${Version.coreKtx}"
+    val fragmentKtx = "androidx.fragment:fragment-ktx:${Version.fragmentKtx}"
     val gson = "com.google.code.gson:gson:${Version.gson}"
 }
 
@@ -137,6 +140,12 @@ object Dagger {
     val processor = "com.google.dagger:dagger-android-processor:${Version.dagger}"
 }
 
+object Hilt {
+    val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Version.hilt}"
+    val hilt = "com.google.dagger:hilt-android:${Version.hilt}"
+    val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Version.hilt}"
+}
+
 object Room {
     val room = "androidx.room:room-runtime:${Version.room}"
     val compiler = "androidx.room:room-compiler:${room}"
@@ -144,13 +153,6 @@ object Room {
 
 object Log {
     val stetho = "com.facebook.stetho:stetho-okhttp3:${Version.stetho}"
-}
-
-object Flipper {
-    val flipper = "com.facebook.flipper:flipper:${Version.flipper}"
-    val flipperNoOp = "com.facebook.flipper:flipper-noop:${Version.flipper}"
-    val flipperNetwork = "com.facebook.flipper:flipper-network-plugin:${Version.flipper}"
-    val soloader = "com.facebook.soloader:soloader:${Version.soloader}"
 }
 
 object Testing {
@@ -175,6 +177,4 @@ object Testing {
 
 object Misc {
     val shimmer = "com.facebook.shimmer:shimmer:${Version.shimmer}"
-    //val deeplink = "com.airbnb:deeplinkdispatch:${Version.deeplink}"
-    //val deeplinkProcessor = "com.airbnb:deeplinkdispatch-processor:${Version.deeplink}"
 }

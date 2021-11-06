@@ -7,10 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.xdwin.data.api.BaseResult
 import com.xdwin.data.data.Credits
 import com.xdwin.data.data.MovieDetail
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class DetailViewModel @Inject constructor(val repo: DetailRepository) : ViewModel() {
 
     private var _detailMovie = MutableLiveData<BaseResult<MovieDetail>>()

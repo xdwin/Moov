@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xdwin.data.api.BaseResult
 import com.xdwin.data.data.Movies
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class SearchViewModel @Inject constructor(val repository: SearchRepository) : ViewModel() {
     private val _searchResult: MutableLiveData<BaseResult<Movies>> = MutableLiveData()
     val searchResult: LiveData<BaseResult<Movies>> = _searchResult
